@@ -1,0 +1,126 @@
+@font-face {
+  font-family: "amatic";
+  src: url("/assets/fonts/AmaticSC-Regular.ttf");
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-image: url(/assets/images/bulut2.jpg);
+  font-family: "amatic";
+}
+.bilgiler {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border:10px solid #322653;
+	border-radius: 10px;
+	border-top-right-radius: 100px;
+	background: linear-gradient(45deg, #BC7AF9, #620475);
+	background-image: url(/assets/images/back1.jpg);
+	background-repeat: repeat;
+  background-size: cover;
+	width: 381px;
+	height: 545px;
+}
+.girdiler label {
+	font-size: 30px;
+	margin-top: 40px;
+	margin-left: 30px;
+	padding: 3px;
+	color: #9a03f8;
+}
+.form-group {
+	display: flex;
+	flex-wrap: wrap;
+}
+.form-group input[type='text'] {
+	font-family: "amatic";
+	font-size: 17px;
+	border-radius: 5px;
+	margin-left: 30px;
+	width: 80%;
+	padding: 5px;
+	margin-top: 5px;
+}
+.form-group button{
+	font-family: "amatic";
+	font-size: 25px;
+	color: #ffffff;
+	background-image: url(/assets/images/bulut2.jpg);
+	background-repeat: repeat;
+  background-size: cover;
+	border-radius: 5px;
+	border-radius: 30px;
+	margin-left: 30px;
+	width: 80%;
+	padding: 13px;
+	margin-top: 20px;
+}
+.form-group input[type='radio'] {
+	display: inline-block;
+	width: auto;
+}
+nav {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	height: 80px;
+	line-height: 80px;
+	z-index: 111;
+}
+.logo {
+	margin-left: 90px;
+	display: flex;
+	font-size: 40px;
+	font-weight: 800;
+	color: #EEEEEE;
+	letter-spacing: -1.5px;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+b {
+	font-size: 40px;
+	color: #BFDB38;
+}
+.navItems {
+	display: flex;
+}
+.navItems li {
+	list-style: none;
+	margin: 0 15px;
+}
+.navItems li a {
+	font-size: 35px;
+	color: #EEEEEE;
+	margin-left: 120px;
+	letter-spacing: -1px;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+.navItems li:hover a{
+	color: #BFDB38;;
+}
+.links {
+	margin-right: 5%;
+}
+.links a {
+	font-size: 30px;
+	color: #BFDB38;
+	margin: 25px 10px;
+}
+.links a:hover{
+  color: #EEEEEE;
+}
+@media screen and (max-width: 768px) {
+	.navItems {
+		display: none; /* Küçük ekranlarda menüyü gizle */
+	}
+	.logo{
+		margin-right: 80px;
+	}
+}
+
+
