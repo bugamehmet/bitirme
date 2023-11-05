@@ -7,8 +7,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
 	let x = req.body.gelir
-	console.log(x)
-	res.render('yaslar');
+	let yas = req.body.yas
+	console.log(yas)
+	res.render(`${yas}yas`)
 });
 
 module.exports = router;
