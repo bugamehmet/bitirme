@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const connection = require('./db')
 require('dotenv').config();
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -41,14 +42,17 @@ app.get('/6yas', (req, res) => {
 });
 
 app.post('/kolay', (req, res) => {
-	let yas = req.session.yas
+	let yas = req.session.yas;
 	res.render(`testler/${yas}yaskolay`);
 });
 app.post('/zor', (req, res) => {
-	let yas = req.session.yas
-	res.render(`testler/${yas}yaszor`)
+	let yas = req.session.yas;
+	res.render(`testler/${yas}yaszor`);
 });
 
+app.post('/2kolaytest1', (req, res) => {
+	res.render('oyunlar/2kolaytest1');
+});
 
 app.listen(process.env.PORT, (error) => {
 	if (error) {
