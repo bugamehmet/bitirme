@@ -1,14 +1,14 @@
 const basla = document.getElementById('basla');
-basla.addEventListener('click', myFunction);
+basla.addEventListener('click', baslatmaFonk);
 
 const resim1 = document.getElementById('resim1');
-resim1.addEventListener('click', myFunction1);
+resim1.addEventListener('click', resim1fonk);
 
 const resim2 = document.getElementById('resim2');
-resim2.addEventListener('click', myFunction2);
+resim2.addEventListener('click', resim2fonk);
 
 const resim3 = document.getElementById('resim3');
-resim3.addEventListener('click', myFunction3);
+resim3.addEventListener('click', resim3fonk);
 
 let sesbutton = document.getElementById('ses-button');
 sesbutton.addEventListener('click', tekrardinle);
@@ -20,30 +20,26 @@ const nesneler = [
 		xx: '1',
 	},
 	{
-		isim: 'Helikopter',
-		resim: '/assets/images/2kolaytest1/helikopter.jpg',
+		isim: 'Ayakkabı',
+		resim: '/assets/images/2kolaytest1/ayakkabı.jpg',
 		xx: '2',
 	},
 	{
-		isim: 'Ayakkabı',
-		resim: '/assets/images/2kolaytest1/ayakkabı.jpg',
+		isim: 'Basket Topu',
+		resim: '/assets/images/2kolaytest1/basket.png',
 		xx: '3',
 	},
 ];
 // TODO : Daha fazla nesne eklenerek html daki img leri rastgele atıyarak yapılabilir.
 const x = Math.floor(Math.random() * 3);
 
-function myFunction() {
+function baslatmaFonk() {
 	const resimlerDisplay = document.querySelector('.resimler');
-	const resim = document.getElementById('resim');
-	const resimDisplay = document.querySelector('.resim');
 	ilkses(nesneler[x]);
-	resim.src = nesneler[x].resim;
-	resimDisplay.style.display = 'flex';
 	resimlerDisplay.style.display = 'flex';
 	basla.style.display = 'none';
 }
-function myFunction1() {
+function resim1fonk() {
 	if (resim1.value == nesneler[x].xx) {
 		const veri = { sonuc: 'DOGRU', sorulan: nesneler[x].isim, tiklanan: nesneler[0].isim };
 
@@ -76,7 +72,7 @@ function myFunction1() {
 		alert('yanlış');
 	}
 }
-function myFunction2() {
+function resim2fonk() {
 	if (resim2.value == nesneler[x].xx) {
 		const veri = { sonuc: 'DOGRU', sorulan: nesneler[x].isim, tiklanan: nesneler[1].isim };
 		fetch('/2kolaytest1oyun1', {
@@ -106,7 +102,7 @@ function myFunction2() {
 		alert('yanlış');
 	}
 }
-function myFunction3() {
+function resim3fonk() {
 	if (resim3.value == nesneler[x].xx) {
 		const veri = { sonuc: 'DOGRU', sorulan: nesneler[x].isim, tiklanan: nesneler[2].isim };
 		fetch('/2kolaytest1oyun1', {
