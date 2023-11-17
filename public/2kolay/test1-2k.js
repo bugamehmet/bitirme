@@ -1,3 +1,4 @@
+// TODO : TEKRAR OYNAMA FONKSİYONU EKLENECEK
 const basla = document.getElementById('basla');
 basla.addEventListener('click', baslatmaFonk);
 
@@ -61,7 +62,7 @@ function fetchAndAlert(sonuc, tiklanan){
 		body : JSON.stringify(veri),
 	})
 	.then((response) => response.json())
-	.catch((error)=> console.error('Hata:', error))
+	.catch((error)=> console.log('Hata:', error))
 }
 function ilkses(nesne) {
 	let text = `${nesne.isim} hangisidir`;
