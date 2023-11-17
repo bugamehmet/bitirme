@@ -20,7 +20,6 @@ app.use('/public', express.static('public'));
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/views/anasayfa.html');
 });
-
 app.post('/', (req, res) => {
 	let yas = req.body.yas;
 	req.session.yas = yas;
@@ -32,16 +31,13 @@ app.post('/', (req, res) => {
 	}
 	res.end();
 });
-
 app.get(`/:yas`, (req, res) => {
 	let yas = req.session.yas;
 	res.sendFile(__dirname + `/views/${yas}yas.html`);
 });
-
 app.get('/6yas', (req, res) => {
 	res.sendFile(__dirname + '/views/6yas.html');
 });
-
 app.post('/kolay', (req, res) => {
 	let yas = req.session.yas;
 	res.render(`testler/${yas}yaskolay`);
@@ -77,6 +73,33 @@ app.post('/2kolaytest1oyun1', (req, res) => {
 		}
 	});
 });
+
+app.post('/2zortest1', (req, res)=>{
+	res.render('oyunlar/2zortest1')
+})
+app.post('/2zortest1oyun1', (req, res)=>{
+	const veri = req.body;
+	//console.log('YAS:', req.session.yas);
+	//console.log('Alınan veri:', veri.sorulan);
+	//console.log('Alınan veri:', veri.tiklanan);
+	//console.log('Alınan veri:', veri.sonuc);
+	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
+	let parametreler = [
+		req.session.yas,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/2zortest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/2zortest1');
+		}
+	});
+})
 
 app.listen(process.env.PORT, (error) => {
 	if (error) {
