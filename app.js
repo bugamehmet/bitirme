@@ -47,6 +47,7 @@ app.post('/zor', (req, res) => {
 	res.render(`testler/${yas}yaszor`);
 });
 
+//TODO : urlleri değiştir.
 app.post('/2kolaytest1', (req, res) => {
 	res.render('oyunlar/2kolaytest1');
 });
@@ -127,6 +128,18 @@ app.post('/3kolaytest1oyun1', (req, res)=>{
 		}
 	});
 })
+
+app.post('/2kolaytest2', (req,res)=>{
+	res.render('oyunlar/2kolaytest2')
+})
+
+// TODO : VERİ TABANI İŞLEMLERİ
+app.post('/2kolaytest2oyun1', (req, res)=>{
+	const veri = req.body;
+	console.log(veri)
+	res.render('oyunlar/2kolaytest2')
+})
+
 app.listen(process.env.PORT, (error) => {
 	if (error) {
 		console.log('server başlatılırken hata oluştu');
