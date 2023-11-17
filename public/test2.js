@@ -11,8 +11,8 @@ resimler.forEach((resim, index) => {
 
 const nesneler = [
 	{
-		isim: 'Ayı',
-		resim: '/assets/images/2zortest1/ayi.png',
+		isim: 'Basket Topu',
+		resim: '/assets/images/2zortest1/basket.png',
 		xx: '1',
 	},
 	{
@@ -26,13 +26,13 @@ const nesneler = [
 		xx: '3',
 	},
 	{
-		isim: 'Portakal',
-		resim: '/assets/images/2zortest1/protakal.png',
+		isim: 'Kiraz',
+		resim: '/assets/images/2zortest1/kiraz.png',
 		xx: '4',
 	},
 	{
-		isim: 'Tavşan',
-		resim: '/assets/images/2zortest1/tavsan.png',
+		isim: 'Portakal',
+		resim: '/assets/images/2zortest1/portakal.png',
 		xx: '5',
 	},
 	{
