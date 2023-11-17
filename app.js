@@ -76,7 +76,7 @@ app.post('/2kolaytest1oyun1', (req, res) => {
 
 app.post('/2zortest1', (req, res)=>{
 	res.render('oyunlar/2zortest1')
-})
+});
 app.post('/2zortest1oyun1', (req, res)=>{
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
@@ -99,8 +99,34 @@ app.post('/2zortest1oyun1', (req, res)=>{
 			res.render('oyunlar/2zortest1');
 		}
 	});
-})
+});
 
+app.post('/3kolaytest1', (req,res) =>{
+	res.render('oyunlar/3kolaytest1');
+;})
+app.post('/3kolaytest1oyun1', (req, res)=>{
+	const veri = req.body;
+	//console.log('YAS:', req.session.yas);
+	//console.log('Alınan veri:', veri.sorulan);
+	//console.log('Alınan veri:', veri.tiklanan);
+	//console.log('Alınan veri:', veri.sonuc);
+	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
+	let parametreler = [
+		req.session.yas,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3kolaytest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3kolaytest1');
+		}
+	});
+})
 app.listen(process.env.PORT, (error) => {
 	if (error) {
 		console.log('server başlatılırken hata oluştu');
