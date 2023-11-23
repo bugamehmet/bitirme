@@ -58,9 +58,9 @@ app.post('/zortest/:id', (req, res)=>{
 	res.render(`oyunlar/${yas}zortest${sayi}`)
 });
 
-// TODO : RENK ESLEME(2KZ-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
+// TODO : RENK ESLEME(2Z-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
 
-// 2 YAS TESTLERİ 
+// -------- 2 YAS TESTLERİ 
 app.post('/2kolaytest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
@@ -112,9 +112,9 @@ app.post('/2zortest1', (req, res)=>{
 		}
 	});
 });
-// 2 YAS TESTLERİ SON
+// ------ 2 YAS TESTLERİ SON
 
-// 3 YAS TESTLERİ BASLANGIC 
+// ------- 3 YAS TESTLERİ BASLANGIC 
 app.post('/3kolaytest1', (req, res)=>{
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
@@ -138,9 +138,33 @@ app.post('/3kolaytest1', (req, res)=>{
 		}
 	});
 })
-// 3 YAS TESTLERİ SON
+// ------- 3 YAS TESTLERİ SON
 
-
+// -------- 4 YAS TESTLER BASLANGIC
+app.post('/kolaytest1', (req, res)=>{
+	const veri = req.body;
+	//console.log('YAS:', req.session.yas);
+	//console.log('Alınan veri:', veri.sorulan);
+	//console.log('Alınan veri:', veri.tiklanan);
+	//console.log('Alınan veri:', veri.sonuc);
+	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
+	let parametreler = [
+		req.session.yas,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3kolaytest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3kolaytest1');
+		}
+	});
+})
+// ---------- 4 YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {
 	if (error) {
