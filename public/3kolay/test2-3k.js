@@ -12,22 +12,22 @@ resimler.forEach((resim, index) => {
 const nesneler = [
 	{
 		isim: 'Kırmızı Ayı',
-		resim: '/assets/images/2zortest2/kirmizi-ayi.png',
+		resim: '/assets/images/3kolaytest2/kirmizi-ayi.png',
 		xx: '1',
 	},
 	{
-		isim: 'Yeşil Araba',
-		resim: '/assets/images/2zortest2/mavi-cicek.png',
+		isim: 'Mavi Çiçek',
+		resim: '/assets/images/3kolaytest2/mavi-cicek.png',
 		xx: '2',
 	},
 	{
-		isim: 'Yeşil Ayı',
-		resim: '/assets/images/2zortest2/yesil-araba.png',
+		isim: 'Yeşil Araba',
+		resim: '/assets/images/3kolaytest2/yesil-araba.png',
 		xx: '3',
 	},
 	{
 		isim: 'Yeşil Çiçek',
-		resim: '/assets/images/2zortest2/yesil-cicek.png',
+		resim: '/assets/images/3kolaytest2/yesil-cicek.png',
 		xx: '4',
 	},
 ];

@@ -17,27 +17,27 @@ const nesneler = [
 	},
 	{
 		isim: 'Basket Topu',
-		resim: '/assets/images/2zortest1/basket.png',
+		resim: '/assets/images/3kolaytest1/basket.png',
 		xx: '2',
 	},
 	{
 		isim: 'Futbol Topu',
-		resim: '/assets/images/2zortest1/futbol.png',
+		resim: '/assets/images/3kolaytest1/futbol.png',
 		xx: '3',
 	},
 	{
 		isim: 'Kiraz',
-		resim: '/assets/images/2zortest1/kiraz.png',
+		resim: '/assets/images/3kolaytest1/kiraz.png',
 		xx: '4',
 	},
 	{
 		isim: 'Portakal',
-		resim: '/assets/images/2zortest1/portakal.png',
+		resim: '/assets/images/3kolaytest1/portakal.png',
 		xx: '5',
 	},
 	{
 		isim: 'Üzüm',
-		resim: '/assets/images/2zortest1/üzüm.png',
+		resim: '/assets/images/3kolaytest1/üzüm.png',
 		xx: '6',
 	},
 ];
