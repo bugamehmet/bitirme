@@ -56,7 +56,7 @@ function resimClick(sira){
 function fetchAndAlert(sonuc, tiklanan){
 	const veri = {sonuc, sorulan: nesneler[x].isim, tiklanan}
 
-	fetch('/2kolaytest1oyun1', {
+	fetch('/2kolaytest1', {
 		method : 'POST',
 		headers : {'Content-Type' : 'application/json'},
 		body : JSON.stringify(veri),

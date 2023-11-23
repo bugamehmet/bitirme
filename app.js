@@ -47,11 +47,21 @@ app.post('/zor', (req, res) => {
 	res.render(`testler/${yas}yaszor`);
 });
 
-//TODO : urlleri değiştir.
+app.post('/kolaytest/:id', (req, res) => {
+	let yas = req.session.yas;
+	let sayi = req.params.id;
+	res.render(`oyunlar/${yas}kolaytest${sayi}`);
+});
+app.post('/zortest/:id', (req, res)=>{
+	let yas = req.session.yas;
+	let sayi = req.params.id;
+	res.render(`oyunlar/${yas}zortest${sayi}`)
+});
+
+// TODO : RENK ESLEME(2KZ-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
+
+// 2 YAS TESTLERİ 
 app.post('/2kolaytest1', (req, res) => {
-	res.render('oyunlar/2kolaytest1');
-});
-app.post('/2kolaytest1oyun1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
 	//console.log('Alınan veri:', veri.sorulan);
@@ -74,71 +84,63 @@ app.post('/2kolaytest1oyun1', (req, res) => {
 		}
 	});
 });
-
-app.post('/2zortest1', (req, res)=>{
-	res.render('oyunlar/2zortest1')
-});
-app.post('/2zortest1oyun1', (req, res)=>{
-	const veri = req.body;
-	//console.log('YAS:', req.session.yas);
-	//console.log('Alınan veri:', veri.sorulan);
-	//console.log('Alınan veri:', veri.tiklanan);
-	//console.log('Alınan veri:', veri.sonuc);
-	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [
-		req.session.yas,
-		veri.sorulan,
-		veri.tiklanan,
-		veri.sonuc,
-	];
-	connection.query(sorgu, parametreler, (err, results) => {
-		if (err) {
-			console.log('veriler yüklenirken hata oluştur', err);
-			res.render('oyunlar/2zortest1');
-		} else {
-			console.log('veriler kaydedildi.');
-			res.render('oyunlar/2zortest1');
-		}
-	});
-});
-
-app.post('/3kolaytest1', (req,res) =>{
-	res.render('oyunlar/3kolaytest1');
-;})
-app.post('/3kolaytest1oyun1', (req, res)=>{
-	const veri = req.body;
-	//console.log('YAS:', req.session.yas);
-	//console.log('Alınan veri:', veri.sorulan);
-	//console.log('Alınan veri:', veri.tiklanan);
-	//console.log('Alınan veri:', veri.sonuc);
-	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [
-		req.session.yas,
-		veri.sorulan,
-		veri.tiklanan,
-		veri.sonuc,
-	];
-	connection.query(sorgu, parametreler, (err, results) => {
-		if (err) {
-			console.log('veriler yüklenirken hata oluştur', err);
-			res.render('oyunlar/3kolaytest1');
-		} else {
-			console.log('veriler kaydedildi.');
-			res.render('oyunlar/3kolaytest1');
-		}
-	});
-})
-
-app.post('/2kolaytest2', (req,res)=>{
-	res.render('oyunlar/2kolaytest2')
-})
-
-// TODO : VERİ TABANI İŞLEMLERİ
-app.post('/2kolaytest2oyun1', (req, res)=>{
+app.post('/2kolaytest2', (req, res)=>{
 	const veri = req.body;
 	console.log(veri)
 	res.render('oyunlar/2kolaytest2')
 })
+app.post('/2zortest1', (req, res)=>{
+	const veri = req.body;
+	//console.log('YAS:', req.session.yas);
+	//console.log('Alınan veri:', veri.sorulan);
+	//console.log('Alınan veri:', veri.tiklanan);
+	//console.log('Alınan veri:', veri.sonuc);
+	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
+	let parametreler = [
+		req.session.yas,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/2zortest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/2zortest1');
+		}
+	});
+});
+// 2 YAS TESTLERİ SON
+
+// 3 YAS TESTLERİ BASLANGIC 
+app.post('/3kolaytest1', (req, res)=>{
+	const veri = req.body;
+	//console.log('YAS:', req.session.yas);
+	//console.log('Alınan veri:', veri.sorulan);
+	//console.log('Alınan veri:', veri.tiklanan);
+	//console.log('Alınan veri:', veri.sonuc);
+	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
+	let parametreler = [
+		req.session.yas,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3kolaytest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3kolaytest1');
+		}
+	});
+})
+// 3 YAS TESTLERİ SON
+
+
 
 app.listen(process.env.PORT, (error) => {
 	if (error) {

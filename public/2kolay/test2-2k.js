@@ -79,7 +79,7 @@ function tekrardinle() {
 function fetchAndAlert(sonuc, tiklanan, hedefRenk) {
   const veri = { sonuc, tiklanan, hedefRenk };
 
-	fetch('/2kolaytest2oyun1', {
+	fetch('/2kolaytest2', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(veri),
