@@ -58,7 +58,7 @@ app.post('/zortest/:id', (req, res) => {
 	res.render(`oyunlar/${yas}zortest${sayi}`);
 });
 
-// TODO : RENK ESLEME(2Z-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
+// TODO : RENK ESLEME(2k-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
 
 // -------- 2 YAS TESTLERİ
 app.post('/2kolaytest1', (req, res) => {
@@ -128,6 +128,9 @@ app.post('/3kolaytest1', (req, res) => {
 		}
 	});
 });
+app.post('/3kolaytest2',(req,res)=>{
+	res.render('oyunlar/3kolaytest2')
+})
 // ------- 3 YAS TESTLERİ SON
 
 // -------- 4 YAS TESTLER BASLANGIC
