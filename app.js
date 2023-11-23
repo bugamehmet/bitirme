@@ -52,15 +52,15 @@ app.post('/kolaytest/:id', (req, res) => {
 	let sayi = req.params.id;
 	res.render(`oyunlar/${yas}kolaytest${sayi}`);
 });
-app.post('/zortest/:id', (req, res)=>{
+app.post('/zortest/:id', (req, res) => {
 	let yas = req.session.yas;
 	let sayi = req.params.id;
-	res.render(`oyunlar/${yas}zortest${sayi}`)
+	res.render(`oyunlar/${yas}zortest${sayi}`);
 });
 
 // TODO : RENK ESLEME(2Z-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
 
-// -------- 2 YAS TESTLERİ 
+// -------- 2 YAS TESTLERİ
 app.post('/2kolaytest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
@@ -68,12 +68,7 @@ app.post('/2kolaytest1', (req, res) => {
 	//console.log('Alınan veri:', veri.tiklanan);
 	//console.log('Alınan veri:', veri.sonuc);
 	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [
-		req.session.yas,
-		veri.sorulan,
-		veri.tiklanan,
-		veri.sonuc,
-	];
+	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
@@ -84,24 +79,19 @@ app.post('/2kolaytest1', (req, res) => {
 		}
 	});
 });
-app.post('/2kolaytest2', (req, res)=>{
+app.post('/2kolaytest2', (req, res) => {
 	const veri = req.body;
-	console.log(veri)
-	res.render('oyunlar/2kolaytest2')
-})
-app.post('/2zortest1', (req, res)=>{
+	console.log(veri);
+	res.render('oyunlar/2kolaytest2');
+});
+app.post('/2zortest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
 	//console.log('Alınan veri:', veri.sorulan);
 	//console.log('Alınan veri:', veri.tiklanan);
 	//console.log('Alınan veri:', veri.sonuc);
 	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [
-		req.session.yas,
-		veri.sorulan,
-		veri.tiklanan,
-		veri.sonuc,
-	];
+	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
@@ -111,23 +101,23 @@ app.post('/2zortest1', (req, res)=>{
 			res.render('oyunlar/2zortest1');
 		}
 	});
+});
+app.post('/2yaszortest2', (req, res) => {
+	const veri = req.body;
+	console.log(veri);
+	res.render('oyunlar/2kolaytest2');
 });
 // ------ 2 YAS TESTLERİ SON
 
-// ------- 3 YAS TESTLERİ BASLANGIC 
-app.post('/3kolaytest1', (req, res)=>{
+// ------- 3 YAS TESTLERİ BASLANGIC
+app.post('/3kolaytest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
 	//console.log('Alınan veri:', veri.sorulan);
 	//console.log('Alınan veri:', veri.tiklanan);
 	//console.log('Alınan veri:', veri.sonuc);
 	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [
-		req.session.yas,
-		veri.sorulan,
-		veri.tiklanan,
-		veri.sonuc,
-	];
+	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
@@ -137,23 +127,18 @@ app.post('/3kolaytest1', (req, res)=>{
 			res.render('oyunlar/3kolaytest1');
 		}
 	});
-})
+});
 // ------- 3 YAS TESTLERİ SON
 
 // -------- 4 YAS TESTLER BASLANGIC
-app.post('/kolaytest1', (req, res)=>{
+app.post('/kolaytest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
 	//console.log('Alınan veri:', veri.sorulan);
 	//console.log('Alınan veri:', veri.tiklanan);
 	//console.log('Alınan veri:', veri.sonuc);
 	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [
-		req.session.yas,
-		veri.sorulan,
-		veri.tiklanan,
-		veri.sonuc,
-	];
+	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
@@ -163,7 +148,7 @@ app.post('/kolaytest1', (req, res)=>{
 			res.render('oyunlar/3kolaytest1');
 		}
 	});
-})
+});
 // ---------- 4 YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {
