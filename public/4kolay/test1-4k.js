@@ -12,32 +12,32 @@ resimler.forEach((resim, index) => {
 const nesneler = [
 	{
 		isim: 'Ayakkabı',
-		resim: '/assets/images/3kolaytest1/ayakkabı.jpg',
+		resim: '/assets/images/4kolaytest1/ayakkabı.jpg',
 		xx: '1',
 	},
 	{
 		isim: 'Basket Topu',
-		resim: '/assets/images/2zortest1/basket.png',
+		resim: '/assets/images/4kolaytest1/basket.png',
 		xx: '2',
 	},
 	{
 		isim: 'Futbol Topu',
-		resim: '/assets/images/2zortest1/futbol.png',
+		resim: '/assets/images/4kolaytest1/futbol.png',
 		xx: '3',
 	},
 	{
 		isim: 'Kiraz',
-		resim: '/assets/images/2zortest1/kiraz.png',
+		resim: '/assets/images/4kolaytest1/kiraz.png',
 		xx: '4',
 	},
 	{
 		isim: 'Portakal',
-		resim: '/assets/images/2zortest1/portakal.png',
+		resim: '/assets/images/4kolaytest1/portakal.png',
 		xx: '5',
 	},
 	{
 		isim: 'Üzüm',
-		resim: '/assets/images/2zortest1/üzüm.png',
+		resim: '/assets/images/4kolaytest1/üzüm.png',
 		xx: '6',
 	},
 ];
@@ -53,10 +53,10 @@ function baslatmaFonk() {
 
 function resimClick(sira) {
 	if (sira == nesneler[x].xx) {
-		alert('DOGRU')
+		alert('DOGRU');
 		fetchAndAlert('DOGRU', nesneler[x].isim, nesneler[sira - 1].isim);
 	} else {
-		alert('YANLIS')
+		alert('YANLIS');
 		fetchAndAlert('YANLIS', nesneler[x].isim, nesneler[sira - 1].isim);
 	}
 }
