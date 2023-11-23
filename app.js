@@ -137,7 +137,7 @@ app.post('/3yaszortest1', (req, res)=>{
 // ------- 3 YAS TESTLERİ SON
 
 // -------- 4 YAS TESTLER BASLANGIC
-app.post('/kolaytest1', (req, res) => {
+app.post('/4kolaytest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
 	//console.log('Alınan veri:', veri.sorulan);
@@ -155,6 +155,9 @@ app.post('/kolaytest1', (req, res) => {
 		}
 	});
 });
+app.post('/4kolaytest2', (req,res)=>{
+	res.render('oyunlar/4kolaytest2')
+})
 // ---------- 4 YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {
