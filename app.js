@@ -102,7 +102,7 @@ app.post('/2zortest1', (req, res) => {
 		}
 	});
 });
-app.post('/2yaszortest2', (req, res) => {
+app.post('/2zortest2', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
 	res.render('oyunlar/2kolaytest2');
@@ -130,6 +130,9 @@ app.post('/3kolaytest1', (req, res) => {
 });
 app.post('/3kolaytest2',(req,res)=>{
 	res.render('oyunlar/3kolaytest2')
+})
+app.post('/3yaszortest1', (req, res)=>{
+	res.render('oyunlar/3zortest1')
 })
 // ------- 3 YAS TESTLERİ SON
 
