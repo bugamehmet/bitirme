@@ -163,6 +163,11 @@ app.post('/4zortest1', (req,res)=>{
 })
 // ---------- 4 YAS TESTLER SON
 
+// ---------- 5 YAS TESTLER BASLANGIC
+app.post('/5kolaytest1', (req,res)=>{
+	res.render('oyunlar/5kolaytest1')
+})
+// ---------- 5 Y AS TESTLER SON
 app.listen(process.env.PORT, (error) => {
 	if (error) {
 		console.log('server başlatılırken hata oluştu');
