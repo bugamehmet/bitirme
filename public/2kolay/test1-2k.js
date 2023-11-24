@@ -2,6 +2,10 @@
 const basla = document.getElementById('basla');
 basla.addEventListener('click', baslatmaFonk);
 
+let sesDogru = new Audio('/assets/audio/correct.wav')
+let sesYanlis = new Audio('/assets/audio/yanlis.mp3')
+
+
 const resimler = [];
 for (let i = 1; i<=3; i++){
 	const resim = document.getElementById(`resim${i}`);
@@ -46,9 +50,11 @@ function resimClick(sira){
 
 	if(sira == dogruCevap){
 		fetchAndAlert('DOGRU', tiklanan);
+		sesDogru.play()
 		alert('DOĞRU')
 	} else {
 		fetchAndAlert('YANLIS', tiklanan);
+		sesYanlis.play()
 		alert('YANLIŞ')
 	}
 }

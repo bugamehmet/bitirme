@@ -9,6 +9,9 @@ resimler.forEach((resim, index) => {
 	resim.addEventListener('click', () => resimClick(index + 1));
 });
 
+let sesDogru = new Audio('/assets/audio/correct.wav')
+let sesYanlis = new Audio('/assets/audio/yanlis.mp3')
+
 const nesneler = [
 	{
 		isim: 'Ayakkabı',
@@ -53,9 +56,11 @@ function baslatmaFonk() {
 
 function resimClick(sira) {
 	if (sira == nesneler[x].xx) {
+		sesDogru.play()
 		alert('DOGRU');
 		fetchAndAlert('DOGRU', nesneler[x].isim, nesneler[sira - 1].isim);
 	} else {
+		sesYanlis.play()
 		alert('YANLIS');
 		fetchAndAlert('YANLIS', nesneler[x].isim, nesneler[sira - 1].isim);
 	}
