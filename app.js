@@ -158,6 +158,9 @@ app.post('/4kolaytest1', (req, res) => {
 app.post('/4kolaytest2', (req,res)=>{
 	res.render('oyunlar/4kolaytest2')
 })
+app.post('/4zortest1', (req,res)=>{
+	res.render('oyunlar/4zortest1')
+})
 // ---------- 4 YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {
