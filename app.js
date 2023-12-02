@@ -136,6 +136,11 @@ app.post('/3kolaytest1', (req, res) => {
 app.post('/3kolaytest2',(req,res)=>{
 	res.render('oyunlar/3kolaytest2')
 })
+app.post('/3kolaytest3', (req,res)=>{
+	veri = req.body
+	console.log(veri)
+	res.render('oyunlar/3kolaytest3')
+})
 app.post('/3yaszortest1', (req, res)=>{
 	res.render('oyunlar/3zortest1')
 })
