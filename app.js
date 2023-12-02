@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const connection = require('./db');
+const { log } = require('console');
 require('dotenv').config();
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -167,6 +168,11 @@ app.post('/4kolaytest1', (req, res) => {
 });
 app.post('/4kolaytest2', (req,res)=>{
 	res.render('oyunlar/4kolaytest2')
+})
+app.post('/4kolaytest3', (req,res)=>{
+	let veri = req.body
+	console.log(veri);
+	res.render('oyunlar/4kolaytest3')
 })
 app.post('/4zortest1', (req,res)=>{
 	res.render('oyunlar/4zortest1')
