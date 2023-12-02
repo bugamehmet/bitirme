@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const connection = require('./db');
-const { log } = require('console');
 require('dotenv').config();
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -47,7 +46,6 @@ app.post('/zor', (req, res) => {
 	let yas = req.session.yas;
 	res.render(`testler/${yas}yaszor`);
 });
-
 app.post('/kolaytest/:id', (req, res) => {
 	let yas = req.session.yas;
 	let sayi = req.params.id;
@@ -138,7 +136,7 @@ app.post('/3kolaytest2',(req,res)=>{
 	res.render('oyunlar/3kolaytest2')
 })
 app.post('/3kolaytest3', (req,res)=>{
-	veri = req.body
+	let veri = req.body
 	console.log(veri)
 	res.render('oyunlar/3kolaytest3')
 })
@@ -183,7 +181,12 @@ app.post('/4zortest1', (req,res)=>{
 app.post('/5kolaytest1', (req,res)=>{
 	res.render('oyunlar/5kolaytest1')
 })
-// ---------- 5 Y AS TESTLER SON
+app.post('/5kolaytest2', (req,res)=>{
+	veri = req.body
+	console.log(veri);
+	res.render('oyunlar/5kolaytest2')
+})
+// ---------- 5 YAS TESTLER SON
 app.listen(process.env.PORT, (error) => {
 	if (error) {
 		console.log('server başlatılırken hata oluştu');
