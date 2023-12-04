@@ -192,6 +192,11 @@ app.post('/4kolaytest3', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/4kolaytest3');
 });
+app.post('/4kolaytest4', (req,res)=>{
+	let veri = req.body
+	console.log(veri);
+	res.render('oyunlar/4kolaytest4')
+})
 app.post('/4zortest1', (req, res) => {
 	res.render('oyunlar/4zortest1');
 });
