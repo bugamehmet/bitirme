@@ -158,6 +158,11 @@ app.post('/3kolaytest4', (req, res) => {
 app.post('/3yaszortest1', (req, res) => {
 	res.render('oyunlar/3zortest1');
 });
+app.post('/3zortest2', (req,res)=>{
+	let veri = req.body
+	console.log(veri);
+	res.render('oyunlar/3zortest2')
+})
 // ------- 3 YAS TESTLERİ SON
 
 // -------- 4 YAS TESTLER BASLANGIC
