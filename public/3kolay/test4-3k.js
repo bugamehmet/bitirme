@@ -20,27 +20,27 @@ sesbutton.addEventListener('click', tekrardinle);
 const nesneler = [
 	{
 		isim: 'Baklava Dilimi',
-		resim: '/assets/images/2zortest3/baklava.png',
+		resim: '/assets/images/3kolaytest4/baklava.png',
 		xx: '1',
 	},
 	{
 		isim: 'Daire',
-		resim: '/assets/images/2zortest3/daire.png',
+		resim: '/assets/images/3kolaytest4/daire.png',
 		xx: '2',
 	},
 	{
 		isim: 'Kare',
-		resim: '/assets/images/2zortest3/kare.png',
+		resim: '/assets/images/3kolaytest4/kare.png',
 		xx: '3',
 	},
   {
 		isim: 'Üçgen',
-		resim: '/assets/images/2zortest3/ucgen.png',
+		resim: '/assets/images/3kolaytest4/ucgen.png',
 		xx: '4',
 	},
   {
 		isim: 'Yıldız',
-		resim: '/assets/images/2zortest3/yildiz.png',
+		resim: '/assets/images/3kolaytest4/yildiz.png',
 		xx: '5',
 	},
 ];
@@ -73,7 +73,7 @@ function resimClick(sira){
 function fetchAndAlert(sonuc, tiklanan){
 	const veri = {sonuc, sorulan: nesneler[x].isim, tiklanan}
 
-	fetch('/2zortest3', {
+	fetch('/3kolaytest4', {
 		method : 'POST',
 		headers : {'Content-Type' : 'application/json'},
 		body : JSON.stringify(veri),

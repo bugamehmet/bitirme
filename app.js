@@ -83,16 +83,16 @@ app.post('/2kolaytest2', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/2kolaytest2');
 });
-app.post('/2kolaytest3', (req,res)=>{
+app.post('/2kolaytest3', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/2kolaytest3')
-})
-app.post('/2kolaytest4', (req, res)=>{
-	let veri = req.body
+	res.render('oyunlar/2kolaytest3');
+});
+app.post('/2kolaytest4', (req, res) => {
+	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/2kolaytest4')
-})
+	res.render('oyunlar/2kolaytest4');
+});
 app.post('/2zortest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
@@ -116,11 +116,11 @@ app.post('/2zortest2', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/2kolaytest2');
 });
-app.post('/2zortest3', (req,res)=>{
-	let veri = req.body
+app.post('/2zortest3', (req, res) => {
+	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/2zortest3')
-})
+	res.render('oyunlar/2zortest3');
+});
 // ------ 2 YAS TESTLERİ SON
 
 // ------- 3 YAS TESTLERİ BASLANGIC
@@ -142,17 +142,22 @@ app.post('/3kolaytest1', (req, res) => {
 		}
 	});
 });
-app.post('/3kolaytest2',(req,res)=>{
-	res.render('oyunlar/3kolaytest2')
-})
-app.post('/3kolaytest3', (req,res)=>{
-	let veri = req.body
-	console.log(veri)
-	res.render('oyunlar/3kolaytest3')
-})
-app.post('/3yaszortest1', (req, res)=>{
-	res.render('oyunlar/3zortest1')
-})
+app.post('/3kolaytest2', (req, res) => {
+	res.render('oyunlar/3kolaytest2');
+});
+app.post('/3kolaytest3', (req, res) => {
+	let veri = req.body;
+	console.log(veri);
+	res.render('oyunlar/3kolaytest3');
+});
+app.post('/3kolaytest4', (req, res) => {
+	let veri = req.body;
+	console.log(veri);
+	res.render('oyunlar/3kolaytest4');
+});
+app.post('/3yaszortest1', (req, res) => {
+	res.render('oyunlar/3zortest1');
+});
 // ------- 3 YAS TESTLERİ SON
 
 // -------- 4 YAS TESTLER BASLANGIC
@@ -174,28 +179,28 @@ app.post('/4kolaytest1', (req, res) => {
 		}
 	});
 });
-app.post('/4kolaytest2', (req,res)=>{
-	res.render('oyunlar/4kolaytest2')
-})
-app.post('/4kolaytest3', (req,res)=>{
-	let veri = req.body
+app.post('/4kolaytest2', (req, res) => {
+	res.render('oyunlar/4kolaytest2');
+});
+app.post('/4kolaytest3', (req, res) => {
+	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4kolaytest3')
-})
-app.post('/4zortest1', (req,res)=>{
-	res.render('oyunlar/4zortest1')
-})
+	res.render('oyunlar/4kolaytest3');
+});
+app.post('/4zortest1', (req, res) => {
+	res.render('oyunlar/4zortest1');
+});
 // ---------- 4 YAS TESTLER SON
 
 // ---------- 5 YAS TESTLER BASLANGIC
-app.post('/5kolaytest1', (req,res)=>{
-	res.render('oyunlar/5kolaytest1')
-})
-app.post('/5kolaytest2', (req,res)=>{
-	veri = req.body
+app.post('/5kolaytest1', (req, res) => {
+	res.render('oyunlar/5kolaytest1');
+});
+app.post('/5kolaytest2', (req, res) => {
+	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5kolaytest2')
-})
+	res.render('oyunlar/5kolaytest2');
+});
 // ---------- 5 YAS TESTLER SON
 app.listen(process.env.PORT, (error) => {
 	if (error) {
