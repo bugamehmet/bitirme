@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>GEOMETRİK CİSİM BULMA OYUNU</title>
+	</head>
+	<body>
+		<div class="oyun">
+			<button type="button" id="basla">Oyna</button>
+		</div>
+		<div id="ses">
+			<button id="ses-button">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="16"
+					height="16"
+					fill="currentColor"
+					class="bi bi-volume-up-fill"
+					viewBox="0 0 16 16"
+				>
+					<path
+						d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"
+					/>
+					<path
+						d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"
+					/>
+					<path
+						d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"
+					/></svg
+				>TEKRAR DİNLE
+			</button>
+		</div>
+		<div class="resimler">
+			<div class="resim1">
+				<button type="button" id="resim1" value="1"></button>
+			</div>
+			<div class="resim2">
+				<button type="button" id="resim2" value="2"></button>
+			</div>
+			<div class="resim3">
+				<button type="button" id="resim3" value="3"></button>
+			</div>
+		</div>
+		<script src="/public/2kolay/test4-2k.js"></script>
+	</body>
+</html>
+
+<style>
+	@font-face {
+		font-family: 'amatic';
+		src: url('/assets/fonts/AmaticSC-Regular.ttf');
+	}
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		background-image: url(/assets/images/bulut2.jpg);
+		font-family: 'amatic';
+	}
+	#ses {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	#ses-button {
+		font-family: 'amatic';
+		padding: 10px;
+		margin-top: 20px;
+		font-size: 25px;
+		border: 2px solid black;
+		border-radius: 10px;
+		background-color: #4caf50;
+		color: white;
+		cursor: pointer;
+	}
+	.resimler {
+		display: none;
+		justify-content: space-around;
+		margin-top: 300px;
+	}
+	.oyun button {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-family: 'amatic';
+		font-size: 50px;
+		color: #ffffff;
+		background-image: url(/assets/images/back1.jpg);
+		background-repeat: repeat;
+		background-size: cover;
+		border: 5px solid black;
+		border-radius: 200px;
+		width: 200px;
+		height: 200px;
+		padding: 13px;
+		cursor: pointer;
+	}
+	.resim {
+		border: 5px solid black;
+		border-radius: 5px;
+		display: none;
+		position: absolute;
+		top: 25%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	.resim1 button {
+		font-family: 'amatic';
+		font-size: 20px;
+		color: #ffffff;
+		background-image: url(/assets/images/2kolaytest4/daire.png);
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		border: 5px solid black;
+		border-radius: 20px;
+		width: 300px;
+		height: 230px;
+		padding: 13px;
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	.resim2 button {
+		font-family: 'amatic';
+		font-size: 20px;
+		color: #ffffff;
+		background-image: url(/assets/images/2kolaytest4/kare.png);
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		border: 5px solid black;
+		border-radius: 20px;
+		width: 300px;
+		height: 230px;
+		padding: 13px;
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	.resim3 button {
+		font-family: 'amatic';
+		font-size: 20px;
+		color: #ffffff;
+		background-image: url(/assets/images/2kolaytest4/ucgen.png);
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		border: 5px solid black;
+		border-radius: 20px;
+		width: 300px;
+		height: 230px;
+		padding: 13px;
+		margin-top: 10px;
+		cursor: pointer;
+	}
+</style>

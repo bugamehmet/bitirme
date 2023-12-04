@@ -88,6 +88,11 @@ app.post('/2kolaytest3', (req,res)=>{
 	console.log(veri);
 	res.render('oyunlar/2kolaytest3')
 })
+app.post('/2kolaytest4', (req, res)=>{
+	let veri = req.body
+	console.log(veri);
+	res.render('oyunlar/2kolaytest4')
+})
 app.post('/2zortest1', (req, res) => {
 	const veri = req.body;
 	//console.log('YAS:', req.session.yas);
