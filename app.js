@@ -116,6 +116,11 @@ app.post('/2zortest2', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/2kolaytest2');
 });
+app.post('/2zortest3', (req,res)=>{
+	let veri = req.body
+	console.log(veri);
+	res.render('oyunlar/2zortest3')
+})
 // ------ 2 YAS TESTLERİ SON
 
 // ------- 3 YAS TESTLERİ BASLANGIC
