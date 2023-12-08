@@ -10,7 +10,7 @@ resimler.forEach((resim, index) => {
 });
 
 let sesDogru = new Audio('/assets/audio/correct.wav')
-let sesYanlis = new Audio('/assets/audio/yanlis.mp3')
+let sesYanlis = new Audio('/assets/audio/wrong.wav')
 
 
 const nesneler = [
