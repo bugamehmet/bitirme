@@ -211,6 +211,11 @@ app.post('/5kolaytest2', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/5kolaytest2');
 });
+app.post('/5zortest1', (req,res)=>{
+	veri = req.body
+	console.log(veri);
+	res.render('oyunlar/5zortest1')
+})
 // ---------- 5 YAS TESTLER SON
 app.listen(process.env.PORT, (error) => {
 	if (error) {
