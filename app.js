@@ -22,22 +22,20 @@ app.get('/', (req, res) => {
 });
 app.post('/', (req, res) => {
 	let yas = req.body.yas;
-	req.session.yas = yas;
-	console.log(yas);
-	if (yas > 6) {
-		res.redirect('/6yas');
-	} else {
-		res.redirect(`/${yas}yas`);
+	if(yas > 6){
+		req.session.yas = 6;
+	} else{
+		req.session.yas = yas
 	}
+	console.log(yas);
+	res.redirect(`/${yas}yas`);
 	res.end();
 });
 app.get(`/:yas`, (req, res) => {
 	let yas = req.session.yas;
 	res.sendFile(__dirname + `/views/${yas}yas.html`);
 });
-app.get('/6yas', (req, res) => {
-	res.sendFile(__dirname + '/views/6yas.html');
-});
+
 app.post('/kolay', (req, res) => {
 	let yas = req.session.yas;
 	res.render(`testler/${yas}yaskolay`);
@@ -217,6 +215,15 @@ app.post('/5zortest1', (req,res)=>{
 	res.render('oyunlar/5zortest1')
 })
 // ---------- 5 YAS TESTLER SON
+
+// ---------- 5 YAS TESTLER BASLANGIC
+app.post('/6zortest1', (req,res)=>{
+	//veri = req.body
+	//console.log(veri);
+	res.sendFile(__dirname + '/views/oyunlar/6zortest1.html')
+})
+// ---------- 5 YAS TESTLER SON
+
 app.listen(process.env.PORT, (error) => {
 	if (error) {
 		console.log('server başlatılırken hata oluştu');
