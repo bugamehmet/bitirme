@@ -218,9 +218,9 @@ app.post('/5zortest1', (req,res)=>{
 
 // ---------- 5 YAS TESTLER BASLANGIC
 app.post('/6zortest1', (req,res)=>{
-	//veri = req.body
-	//console.log(veri);
-	res.sendFile(__dirname + '/views/oyunlar/6zortest1.html')
+	veri = req.body
+	console.log(veri);
+	res.render('oyunlar/6zortest1')
 })
 // ---------- 5 YAS TESTLER SON
 
