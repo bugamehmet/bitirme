@@ -222,6 +222,11 @@ app.post('/5zortest2', (req,res)=>{
 // ---------- 5 YAS TESTLER SON
 
 // ---------- 5 YAS TESTLER BASLANGIC
+app.post('/6kolaytest1', (req,res)=>{
+	veri = req.body
+	console.log(veri);
+	res.render('oyunlar/6kolaytest1')
+})
 app.post('/6zortest1', (req,res)=>{
 	veri = req.body
 	console.log(veri);

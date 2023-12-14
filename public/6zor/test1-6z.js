@@ -85,7 +85,7 @@ const oyunuOlustur = () => {
         throw new Error("Tahta boyutu 2'nin katı olmalıdır.")
     }
 
-    const emojiler = ['🥔', '🍒', '🥑', '🌽', '🥕', '🍇', '🍉', '🍌', '🥭', '🍍']
+    const emojiler = ['🥔', '🍒', '🥑', '🌽', '🥕', '🍇', '🍉', '🍌', '🥭', '🍍','🍆', '🥦', '🍆', '🍅', '🍐', '🍑', '🍋', '🧄', '🧅']
     const secimler = rastgeleSec(emojiler, (boyut * boyut) / 2) 
     const elemanlar = karistir([...secimler, ...secimler])
     const kartlar = `
