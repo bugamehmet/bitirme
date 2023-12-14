@@ -217,7 +217,12 @@ app.post('/5zortest1', (req,res)=>{
 app.post('/5zortest2', (req,res)=>{
 	veri = req.body
 	console.log(veri);
-	res.render('oyunlar/5zortest1')
+	res.render('oyunlar/5zortest2')
+})
+app.post('/5zortest3', (req,res)=>{
+	veri = req.body
+	console.log(veri);
+	res.render('oyunlar/5zortest3')
 })
 // ---------- 5 YAS TESTLER SON
 
