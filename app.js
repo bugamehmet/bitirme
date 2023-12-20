@@ -38,6 +38,10 @@ app.post('/', (req, res) => {
 			req.session.gelir = gelir;
 			req.session.var_yok = var_yok;
 	}
+	console.log(yas);
+	console.log(memleket);
+	console.log(gelir);
+	console.log(var_yok);
 	res.redirect(`/${yas}yas`);
 	res.end();
 });
@@ -73,8 +77,8 @@ app.post('/2kolaytest1', (req, res) => {
 	//console.log('Alınan veri:', veri.sorulan);
 	//console.log('Alınan veri:', veri.tiklanan);
 	//console.log('Alınan veri:', veri.sonuc);
-	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
+	let sorgu = 'INSERT INTO test1 (yas, memleket, gelir, zih_rah, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [req.session.yas, req.session.memleket, req.session.gelir, req.session.var_yok, veri.sorulan, veri.tiklanan, veri.sonuc];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
