@@ -22,20 +22,33 @@ app.get('/', (req, res) => {
 });
 app.post('/', (req, res) => {
 	let yas = req.body.yas;
-	if(yas > 6){
-		req.session.yas = 6;
-	} else{
-		req.session.yas = yas
+	let memleket = req.body.memleket;
+	let gelir = req.body.gelir;
+	let var_yok = req.body.var_yok;
+
+	if (yas > 6) {
+			req.session.yas = 6;
+	} else {
+			req.session.yas = yas;
 	}
-	console.log(yas);
-	res.redirect(`/${yas}yas`);
-	res.end();
+	let sorgu = 'INSERT INTO oyuncular (yas, memleket, gelir, zihinsel_rahatsizlik) VALUES (?, ?, ?, ?)';
+	let params = [yas, memleket, gelir, var_yok];
+
+	connection.query(sorgu, params, (err, results) => {
+			if (err) {
+					console.error(err);
+					res.status(500).send("Internal Server Error");
+					return;
+			}
+			res.redirect(`/${yas}yas`);
+			res.end();
+	});
 });
+
 app.get(`/:yas`, (req, res) => {
 	let yas = req.session.yas;
 	res.sendFile(__dirname + `/views/${yas}yas.html`);
 });
-
 app.post('/kolay', (req, res) => {
 	let yas = req.session.yas;
 	res.render(`testler/${yas}yaskolay`);
@@ -55,7 +68,6 @@ app.post('/zortest/:id', (req, res) => {
 	res.render(`oyunlar/${yas}zortest${sayi}`);
 });
 
-// TODO : RENK ESLEME(2k-3KZ-4KZ) VERİ TABANI İŞLEMLERİ
 
 // -------- 2 YAS TESTLERİ
 app.post('/2kolaytest1', (req, res) => {
@@ -226,7 +238,7 @@ app.post('/5zortest3', (req,res)=>{
 })
 // ---------- 5 YAS TESTLER SON
 
-// ---------- 5 YAS TESTLER BASLANGIC
+// ---------- 6 YAS TESTLER BASLANGIC
 app.post('/6kolaytest1', (req,res)=>{
 	veri = req.body
 	console.log(veri);
@@ -237,7 +249,7 @@ app.post('/6zortest1', (req,res)=>{
 	console.log(veri);
 	res.render('oyunlar/6zortest1')
 })
-// ---------- 5 YAS TESTLER SON
+// ---------- 6		  YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {
 	if (error) {
