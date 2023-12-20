@@ -81,8 +81,8 @@ b {
   border: 10px solid #322653;
   border-radius: 10px;
   border-top-right-radius: 100px;
-  background: linear-gradient(45deg, #bc7af9, #620475);
-  background-image: url(/assets/images/back1.jpg);
+  background: url(/assets/images/testler-arkaplan/kolay.png), url(/assets/images/back1.jpg) ;
+
   background-repeat: repeat;
   background-size: cover;
   width: 330px;
@@ -95,7 +95,7 @@ b {
   border-radius: 10px;
   border-top-right-radius: 100px;
   background: linear-gradient(45deg, #bc7af9, #620475);
-  background-image: url(/assets/images/back1.jpg);
+  background: url(/assets/images/testler-arkaplan/zor.png), url(/assets/images/back1.jpg) ;
   background-repeat: repeat;
   background-size: cover;
   width: 330px;
@@ -117,7 +117,7 @@ b {
 }
 .girdiler img {
   display: block;
-  margin-top: 70px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
 }
