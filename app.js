@@ -20,6 +20,7 @@ app.use('/public', express.static('public'));
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/views/anasayfa.html');
 });
+
 app.post('/', (req, res) => {
 	let yas = req.body.yas;
 	let memleket = req.body.memleket;
@@ -28,21 +29,17 @@ app.post('/', (req, res) => {
 
 	if (yas > 6) {
 			req.session.yas = 6;
+			req.session.memleket = memleket;
+			req.session.gelir = gelir;
+			req.session.var_yok = var_yok;
 	} else {
 			req.session.yas = yas;
+			req.session.memleket = memleket;
+			req.session.gelir = gelir;
+			req.session.var_yok = var_yok;
 	}
-	let sorgu = 'INSERT INTO oyuncular (yas, memleket, gelir, zihinsel_rahatsizlik) VALUES (?, ?, ?, ?)';
-	let params = [yas, memleket, gelir, var_yok];
-
-	connection.query(sorgu, params, (err, results) => {
-			if (err) {
-					console.error(err);
-					res.status(500).send("Internal Server Error");
-					return;
-			}
-			res.redirect(`/${yas}yas`);
-			res.end();
-	});
+	res.redirect(`/${yas}yas`);
+	res.end();
 });
 
 app.get(`/:yas`, (req, res) => {
