@@ -76,7 +76,20 @@ b {
 	justify-content: space-around;
   margin-top: 100px;
 }
-.bilgiler {
+.bilgiler-kolay {
+  position: relative;
+  border: 10px solid #322653;
+  border-radius: 10px;
+  border-top-right-radius: 100px;
+  background: linear-gradient(45deg, #bc7af9, #620475);
+  background-image: url(/assets/images/back1.jpg);
+  background-repeat: repeat;
+  background-size: cover;
+  width: 330px;
+  height: 520px;
+  margin: 10px;
+}
+.bilgiler-zor {
   position: relative;
   border: 10px solid #322653;
   border-radius: 10px;
@@ -101,4 +114,10 @@ b {
   padding-bottom: 360px;
   opacity: 0;
   cursor: pointer;
+}
+.girdiler img {
+  display: block;
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -68,7 +68,7 @@ function fetchAndAlert(sonuc, tiklanan){
 		body : JSON.stringify(veri),
 	})
 	.then((response) => response.json())
-	.catch((error)=> console.log('Hata:', error))
+	.catch((error) => console.log('Hata:', error))
 }
 function ilkses(nesne) {
 	let text = `${nesne.isim} hangisidir`;
