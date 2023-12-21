@@ -28,15 +28,15 @@ app.post('/', (req, res) => {
 	let var_yok = req.body.var_yok;
 
 	if (yas > 6) {
-			req.session.yas = 6;
-			req.session.memleket = memleket;
-			req.session.gelir = gelir;
-			req.session.var_yok = var_yok;
+		req.session.yas = 6;
+		req.session.memleket = memleket;
+		req.session.gelir = gelir;
+		req.session.var_yok = var_yok;
 	} else {
-			req.session.yas = yas;
-			req.session.memleket = memleket;
-			req.session.gelir = gelir;
-			req.session.var_yok = var_yok;
+		req.session.yas = yas;
+		req.session.memleket = memleket;
+		req.session.gelir = gelir;
+		req.session.var_yok = var_yok;
 	}
 	console.log(yas);
 	console.log(memleket);
@@ -47,6 +47,10 @@ app.post('/', (req, res) => {
 });
 
 app.get(`/:yas`, (req, res) => {
+	let yas = req.session.yas;
+	res.sendFile(__dirname + `/views/${yas}yas.html`);
+});
+app.post(`/testler`, (req, res) => {
 	let yas = req.session.yas;
 	res.sendFile(__dirname + `/views/${yas}yas.html`);
 });
@@ -69,7 +73,6 @@ app.post('/zortest/:id', (req, res) => {
 	res.render(`oyunlar/${yas}zortest${sayi}`);
 });
 
-
 // -------- 2 YAS TESTLERİ
 app.post('/2kolaytest1', (req, res) => {
 	const veri = req.body;
@@ -77,8 +80,17 @@ app.post('/2kolaytest1', (req, res) => {
 	//console.log('Alınan veri:', veri.sorulan);
 	//console.log('Alınan veri:', veri.tiklanan);
 	//console.log('Alınan veri:', veri.sonuc);
-	let sorgu = 'INSERT INTO test1 (yas, memleket, gelir, zih_rah, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?, ?, ?, ?)';
-	let parametreler = [req.session.yas, req.session.memleket, req.session.gelir, req.session.var_yok, veri.sorulan, veri.tiklanan, veri.sonuc];
+	let sorgu =
+		'INSERT INTO test1 (yas, memleket, gelir, zih_rah, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+	];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
@@ -166,14 +178,16 @@ app.post('/3kolaytest4', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/3kolaytest4');
 });
-app.post('/3yaszortest1', (req, res) => {
+app.post('/3zortest1', (req, res) => {
+	let veri = req.body;
+	console.log(veri);
 	res.render('oyunlar/3zortest1');
 });
-app.post('/3zortest2', (req,res)=>{
-	let veri = req.body
+app.post('/3zortest2', (req, res) => {
+	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3zortest2')
-})
+	res.render('oyunlar/3zortest2');
+});
 // ------- 3 YAS TESTLERİ SON
 
 // -------- 4 YAS TESTLER BASLANGIC
@@ -203,11 +217,11 @@ app.post('/4kolaytest3', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/4kolaytest3');
 });
-app.post('/4kolaytest4', (req,res)=>{
-	let veri = req.body
+app.post('/4kolaytest4', (req, res) => {
+	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4kolaytest4')
-})
+	res.render('oyunlar/4kolaytest4');
+});
 app.post('/4zortest1', (req, res) => {
 	res.render('oyunlar/4zortest1');
 });
@@ -222,34 +236,34 @@ app.post('/5kolaytest2', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/5kolaytest2');
 });
-app.post('/5zortest1', (req,res)=>{
-	veri = req.body
+app.post('/5zortest1', (req, res) => {
+	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5zortest1')
-})
-app.post('/5zortest2', (req,res)=>{
-	veri = req.body
+	res.render('oyunlar/5zortest1');
+});
+app.post('/5zortest2', (req, res) => {
+	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5zortest2')
-})
-app.post('/5zortest3', (req,res)=>{
-	veri = req.body
+	res.render('oyunlar/5zortest2');
+});
+app.post('/5zortest3', (req, res) => {
+	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5zortest3')
-})
+	res.render('oyunlar/5zortest3');
+});
 // ---------- 5 YAS TESTLER SON
 
 // ---------- 6 YAS TESTLER BASLANGIC
-app.post('/6kolaytest1', (req,res)=>{
-	veri = req.body
+app.post('/6kolaytest1', (req, res) => {
+	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6kolaytest1')
-})
-app.post('/6zortest1', (req,res)=>{
-	veri = req.body
+	res.render('oyunlar/6kolaytest1');
+});
+app.post('/6zortest1', (req, res) => {
+	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6zortest1')
-})
+	res.render('oyunlar/6zortest1');
+});
 // ---------- 6		  YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {

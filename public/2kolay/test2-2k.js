@@ -15,7 +15,7 @@ const sesbutton = document.getElementById('ses-button');
 sesbutton.addEventListener('click', tekrardinle);
 
 const renklerDiv = document.getElementById('renkler');
-const tekrarOynaButton = document.getElementById('tekrarOyna');
+
 
 let sesDogru = new Audio('/assets/audio/correct.wav')
 let sesYanlis = new Audio('/assets/audio/wrong.wav')
@@ -49,19 +49,11 @@ function renkSecildi(renk) {
 		alert('Doğru renk seçildi!');
 		sesDogru.play();
 	} else {
-		sesYanlis();
+		sesYanlis.play();
 		alert('Yanlış renk seçildi. Tekrar deneyin.');
 	}
-
-	tekrarOynaButton.style.display = 'flex';
 }
 
-tekrarOynaButton.addEventListener('click', tekrarOyna);
-
-function tekrarOyna() {
-	tekrarOynaButton.style.display = 'none';
-	hedefRenkSec();
-}
 
 function ilkses(hedefRenk) {
 	let text = `${hedefRenk} hangisidir`;
