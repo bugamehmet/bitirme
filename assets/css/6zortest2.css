@@ -1,0 +1,33 @@
+@font-face {
+	font-family: 'amatic';
+	src: url('/assets/fonts/AmaticSC-Regular.ttf');
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+  background-image: url(/assets/images/bulut2.jpg);
+	font-family: amatic;
+  text-align: center;
+}
+
+#tahta {
+  width: 605px;
+  height: 605px;
+  border: 2px solid purple;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tahta img {
+  width: 150px;
+  height: 150px;
+  border: 0.5px solid lightblue;
+}
+
+img{
+  width: 20%;
+}
