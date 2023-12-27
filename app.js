@@ -225,6 +225,11 @@ app.post('/4kolaytest4', (req, res) => {
 app.post('/4zortest1', (req, res) => {
 	res.render('oyunlar/4zortest1');
 });
+app.post('/4zortest2', (req, res)=>{
+	res.render('oyunlar/4zortest2')
+	veri = req.body;
+	console.log(veri);
+});
 // ---------- 4 YAS TESTLER SON
 
 // ---------- 5 YAS TESTLER BASLANGIC
