@@ -1,0 +1,64 @@
+@font-face {
+	font-family: 'amatic';
+	src: url('/assets/fonts/AmaticSC-Regular.ttf');
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+  background-image: url(/assets/images/bulut2.jpg);
+	font-family: 'amatic';
+  text-align: center;
+}
+#don {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#testleredon-button {
+	font-family: 'amatic';
+	padding: 10px;
+	margin-top: 20px;
+	font-size: 25px;
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: #5D3587;
+	color: white;
+	cursor: pointer;
+}
+#tekraroyna {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#tekraroyna-button {
+	font-family: 'amatic';
+	padding: 10px;
+	margin-top: 20px;
+	font-size: 25px;
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: #A367B1;
+	color: white;
+	cursor: pointer;
+}
+#tahta {
+  width: 605px;
+  height: 605px;
+  border: 2px solid purple;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tahta img {
+  width: 150px;
+  height: 150px;
+  border: 0.5px solid lightblue;
+}
+
+img{
+  width: 20%;
+}

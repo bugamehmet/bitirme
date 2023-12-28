@@ -64,10 +64,6 @@ function fetchAndAlert(sonuc, sorulan, tiklanan) {
         body: JSON.stringify(veri),
     })
         .then((response) => response.json())
-        .then(() => {
-            alert(sonuc);
-            console.log(sonuc);
-        })
         .catch((error) => console.log('HATA', error));
 }
 
