@@ -294,6 +294,11 @@ app.post('/6zortest2', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/6zortest2');
 });
+app.post('/6zortest3', (req, res) => {
+	veri = req.body;
+	console.log(veri);
+	res.render('oyunlar/6zortest3');
+});
 // ---------- 6		  YAS TESTLER SON
 
 app.listen(process.env.PORT, (error) => {
