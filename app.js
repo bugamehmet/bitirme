@@ -230,6 +230,11 @@ app.post('/4zortest2', (req, res)=>{
 	veri = req.body;
 	console.log(veri);
 });
+app.post('/4zortest3', (req, res)=>{
+	res.render('oyunlar/4zortest3')
+	veri = req.body;
+	console.log(veri);
+});
 // ---------- 4 YAS TESTLER SON
 
 // ---------- 5 YAS TESTLER BASLANGIC
