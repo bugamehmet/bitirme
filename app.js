@@ -274,6 +274,11 @@ app.post('/6kolaytest1', (req, res) => {
 	console.log(veri);
 	res.render('oyunlar/6kolaytest1');
 });
+app.post('/6kolaytest2', (req, res) => {
+	veri = req.body;
+	console.log(veri);
+	res.render('oyunlar/6kolaytest2');
+});
 app.post('/6zortest1', (req, res) => {
 	veri = req.body;
 	console.log(veri);
