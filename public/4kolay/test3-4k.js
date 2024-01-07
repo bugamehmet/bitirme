@@ -4,48 +4,43 @@ basla.addEventListener('click', baslatmaFonk);
 const sesbutton = document.getElementById('ses-button');
 sesbutton.addEventListener('click', tekrardinle);
 
-const resimler = document.querySelectorAll('.resimler button');
-resimler.forEach((resim, index) => {
-	resim.addEventListener('click', () => resimClick(index + 1));
-});
-
-let sesDogru = new Audio('/assets/audio/correct.wav')
-let sesYanlis = new Audio('/assets/audio/wrong.wav')
-
+let sesDogru = new Audio('/assets/audio/correct.wav');
+let sesYanlis = new Audio('/assets/audio/wrong.wav');
 
 const nesneler = [
-  {
+	{
 		isim: 'Fil',
 		resim: '/assets/images/4kolaytest3/fil.png',
 		xx: '1',
-    audio : '/assets/audio/4kolaytest3/fil.wav',
+		audio: '/assets/audio/4kolaytest3/fil.wav',
 	},
 	{
 		isim: 'Horoz',
 		resim: '/assets/images/4kolaytest3/horoz.png',
 		xx: '2',
-    audio : '/assets/audio/4kolaytest3/horoz.wav',
+		audio: '/assets/audio/4kolaytest3/horoz.wav',
 	},
 	{
 		isim: 'Kedi',
 		resim: '/assets/images/4kolaytest3/kedi.png',
 		xx: '3',
-    audio:'/assets/audio/4kolaytest3/kedi.wav',
+		audio: '/assets/audio/4kolaytest3/kedi.wav',
 	},
 	{
 		isim: 'Köpek',
 		resim: '/assets/images/4kolaytest3/kopek.png',
 		xx: '4',
-    audio:'/assets/audio/4kolaytest3/kopek.wav',
+		audio: '/assets/audio/4kolaytest3/kopek.wav',
 	},
-  {
+	{
 		isim: 'Kuş',
 		resim: '/assets/images/4kolaytest3/kus.png',
-		xx: '6',
-    audio:'/assets/audio/4kolaytest3/kus.wav',
+		xx: '5',
+		audio: '/assets/audio/4kolaytest3/kus.wav',
 	},
 ];
 let x;
+let zamanSayaci = 0;
 
 async function baslatmaFonk() {
 	x = Math.floor(Math.random() * 5);
@@ -53,29 +48,37 @@ async function baslatmaFonk() {
 	resimlerDisplay.style.display = 'flex';
 	basla.style.display = 'none';
 	ilkses();
-	setTimeout(()=>{
+	setTimeout(() => {
 		let sesx = new Audio(`${nesneler[x].audio}`);
 		sesx.play();
-	}, 2500)
+	}, 2500);
 
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
+	const resimler = document.querySelectorAll('.resimler button');
+	resimler.forEach((resim, index) => {
+		resim.addEventListener('click', () => resimClick(index + 1, zamanSayaci));
+	});
 }
 
-function resimClick(sira) {
+function resimClick(sira, sure) {
 	if (sira == nesneler[x].xx) {
 		sesDogru.play();
-		alert('DOGRU')
-		fetchAndAlert('DOGRU', nesneler[x].isim, nesneler[sira - 1].isim);
+		alert('DOGRU');
+		fetchAndAlert('DOGRU', nesneler[x].isim, nesneler[sira - 1].isim, sure);
 	} else {
-		sesYanlis.play()
-		alert('YANLIS')
-		fetchAndAlert('YANLIS', nesneler[x].isim, nesneler[sira - 1].isim);
+		sesYanlis.play();
+		alert('YANLIS');
+		fetchAndAlert('YANLIS', nesneler[x].isim, nesneler[sira - 1].isim, sure);
 	}
 }
 
-function fetchAndAlert(sonuc, sorulan, tiklanan) {
-	const veri = { sonuc, sorulan, tiklanan };
+function fetchAndAlert(sonuc, sorulan, tiklanan, sure) {
+	const veri = { sonuc, sorulan, tiklanan, sure };
 
-	fetch('/3kolaytest3', {
+	fetch('/4kolaytest3', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(veri),
@@ -86,14 +89,13 @@ function fetchAndAlert(sonuc, sorulan, tiklanan) {
 }
 
 function ilkses() {
-  let text = `Bu ses hangi hayvana aittir`;
-  let utterance = new SpeechSynthesisUtterance();
-  let dil = 'tr-TR';
-  utterance.text = text;
-  utterance.voice = window.speechSynthesis.getVoices()[dil];
-  window.speechSynthesis.speak(utterance);
+	let text = `Bu ses hangi hayvana aittir`;
+	let utterance = new SpeechSynthesisUtterance();
+	let dil = 'tr-TR';
+	utterance.text = text;
+	utterance.voice = window.speechSynthesis.getVoices()[dil];
+	window.speechSynthesis.speak(utterance);
 }
-
 
 function tekrardinle() {
 	let sesx = new Audio(`${nesneler[x].audio}`);

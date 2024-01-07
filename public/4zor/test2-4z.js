@@ -37,27 +37,29 @@ window.onload = function () {
 	}
 };
 
-function fetchAndAlert(hareketler) {
-	const veri = {hareketler};
+function fetchAndAlert(hareketler, sure) {
+	const veri = { hareketler, sure };
 
-	fetch('/6zortest2', {
+	fetch('/4zortest2', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(veri),
 	})
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((sonuc) => {
-        alert(sonuc);
-    })
-    .catch((error) => {
-        console.log('HATA', error);
-    });
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			return response.json();
+		})
+		.then((sonuc) => {
+			alert(sonuc);
+		})
+		.catch((error) => {
+			console.log('HATA', error);
+		});
 }
+
+let zamanSayaci = 0;
 
 function tamamlandiKontrol(hareket) {
 	let tahta = document.getElementById('tahta');
@@ -68,6 +70,9 @@ function tamamlandiKontrol(hareket) {
 		dogruParcaAdlari.push(i.toString() + '.jpg');
 	}
 
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
 	//console.log(dogruParcaAdlari);
 
 	let simdikiParcaAdlari = [];
@@ -77,7 +82,7 @@ function tamamlandiKontrol(hareket) {
 	//console.log(simdikiParcaAdlari);
 
 	if (JSON.stringify(simdikiParcaAdlari) === JSON.stringify(dogruParcaAdlari)) {
-    fetchAndAlert(hareket)
+		fetchAndAlert(hareket, zamanSayaci);
 		alert('Puzzle tamamlandı! Oyun bitti.');
 	}
 }
