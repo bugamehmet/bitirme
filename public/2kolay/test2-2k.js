@@ -20,11 +20,25 @@ const renklerDiv = document.getElementById('renkler');
 let sesDogru = new Audio('/assets/audio/correct.wav')
 let sesYanlis = new Audio('/assets/audio/wrong.wav')
 
+let zamanSayaci = 0;
+
 function baslatmaFonk() {
 	const renklerDisplay = document.querySelector('.renkler');
 	hedefRenkSec();
 	renklerDisplay.style.display = 'flex';
 	basla.style.display = 'none';
+
+	const zamanlayici = setInterval(()=>{
+		zamanSayaci ++;
+	}, 1000)
+
+	renkler.forEach((renk, index) => {
+		const renkDiv = document.createElement('div');
+		renkDiv.classList.add('renk');
+		renkDiv.style.backgroundColor = renk.renk;
+		renkDiv.addEventListener('click', () => renkSecildi(renk, zamanSayaci));
+		renklerDiv.appendChild(renkDiv);
+	});
 }
 
 function hedefRenkSec() {
@@ -33,22 +47,15 @@ function hedefRenkSec() {
 	ilkses(hedefRenk.isim);
 }
 
-renkler.forEach((renk, index) => {
-	const renkDiv = document.createElement('div');
-	renkDiv.classList.add('renk');
-	renkDiv.style.backgroundColor = renk.renk;
-	renkDiv.addEventListener('click', () => renkSecildi(renk));
-	renklerDiv.appendChild(renkDiv);
-});
-
-function renkSecildi(renk) {
+function renkSecildi(renk, sure) {
 	const tiklanan = renk.isim;
 
 	if (renk.isim === hedefRenk.isim) {
-    fetchAndAlert('DOGRU', tiklanan, hedefRenk.isim);
-		alert('Doğru renk seçildi!');
+    fetchAndAlert('DOGRU', tiklanan, hedefRenk.isim, sure);
 		sesDogru.play();
+		alert('Doğru renk seçildi!');
 	} else {
+		fetchAndAlert('YANLIS', tiklanan, hedefRenk.isim, sure);
 		sesYanlis.play();
 		alert('Yanlış renk seçildi. Tekrar deneyin.');
 	}
@@ -73,8 +80,8 @@ function tekrardinle() {
 	window.speechSynthesis.speak(utterance);
 }
 
-function fetchAndAlert(sonuc, tiklanan, hedefRenk) {
-  const veri = { sonuc, tiklanan, hedefRenk };
+function fetchAndAlert(sonuc, tiklanan, hedefRenk, sure) {
+  const veri = { sonuc, tiklanan, hedefRenk, sure};
 
 	fetch('/2kolaytest2', {
 		method: 'POST',
