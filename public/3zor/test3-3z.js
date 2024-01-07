@@ -3,18 +3,24 @@ var ilkSecilen = null;
 var gameObjects = [
 	{ type: 'sari-fasulye', image: '/assets/images/3zortest3/sari-fasulye.png' },
 	{ type: 'kirmizi-fasulye', image: '/assets/images/3zortest3/kirmizi-fasulye.png' },
-	{ type: 'yesil-fasulye', image: '/assets/images/3zortest3/yesil-fasulye.png' }
+	{ type: 'yesil-fasulye', image: '/assets/images/3zortest3/yesil-fasulye.png' },
 ];
 var gameObjects2 = [
 	{ type: 'yesil', image: '/assets/images/3zortest3/yesil.png' },
 	{ type: 'sari', image: '/assets/images/3zortest3/sari.png' },
-	{ type: 'kirmizi', image: '/assets/images/3zortest3/kirmizi.png' }
+	{ type: 'kirmizi', image: '/assets/images/3zortest3/kirmizi.png' },
 ];
 
 let sesDogru = new Audio('/assets/audio/correct.wav');
 let sesYanlis = new Audio('/assets/audio/wrong.wav');
 
+let zamanSayaci = 0;
+
 function tiklamaKontrol(parca) {
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
 	if (ilkSecilen === null) {
 		ilkSecilen = parca;
 		ilkSecilen.style.opacity = 0.5;
@@ -29,7 +35,7 @@ function tiklamaKontrol(parca) {
 			ikinciSecilen.style.display = 'none';
 
 			if (tumObjelerEslesti()) {
-				oyunBitti();
+				oyunBitti(zamanSayaci);
 			}
 		} else {
 			sesYanlis.play();
@@ -75,17 +81,17 @@ function tumObjelerEslesti() {
 	return true;
 }
 
-function oyunBitti() {
-    let kazandinizMesaji = document.getElementById('kazandiniz-mesaji');
-    kazandinizMesaji.style.display = 'block';
-  
-    let tahta = document.getElementById('tahta');
-    tahta.style.display = 'none';
-  
-    let tahta2 = document.getElementById('tahta2');
-    tahta2.style.display = 'none';
+function oyunBitti(sure) {
+	let kazandinizMesaji = document.getElementById('kazandiniz-mesaji');
+	kazandinizMesaji.style.display = 'block';
 
-	fetchAndAlert('Bitti');
+	let tahta = document.getElementById('tahta');
+	tahta.style.display = 'none';
+
+	let tahta2 = document.getElementById('tahta2');
+	tahta2.style.display = 'none';
+
+	fetchAndAlert('Bitti', sure);
 }
 
 window.onload = function () {
@@ -126,8 +132,8 @@ window.onload = function () {
 	}
 };
 
-function fetchAndAlert(sonuc) {
-	const veri = { sonuc };
+function fetchAndAlert(sonuc, sure) {
+	const veri = { sonuc, sure };
 
 	fetch('/3zortest3', {
 		method: 'POST',

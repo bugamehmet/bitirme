@@ -4,13 +4,8 @@ basla.addEventListener('click', baslatmaFonk);
 const sesbutton = document.getElementById('ses-button');
 sesbutton.addEventListener('click', tekrardinle);
 
-const resimler = document.querySelectorAll('.resimler button');
-resimler.forEach((resim, index) => {
-	resim.addEventListener('click', () => resimClick(index + 1));
-});
-
-let sesDogru = new Audio('/assets/audio/correct.wav')
-let sesYanlis = new Audio('/assets/audio/wrong.wav')
+let sesDogru = new Audio('/assets/audio/correct.wav');
+let sesYanlis = new Audio('/assets/audio/wrong.wav');
 
 const nesneler = [
 	{
@@ -33,18 +28,19 @@ const nesneler = [
 		resim: '/assets/images/3zortest1/sari-dinazor.png',
 		xx: '4',
 	},
-  {
+	{
 		isim: 'Yeşil Araba',
 		resim: '/assets/images/3zortest1/yesil-araba.png',
 		xx: '5',
 	},
-  {
+	{
 		isim: 'Yeşil Dinazor',
 		resim: '/assets/images/3zortest1/yesil-dinazor.png',
 		xx: '6',
 	},
 ];
 let x;
+let zamanSayaci = 0;
 
 function baslatmaFonk() {
 	x = Math.floor(Math.random() * 6);
@@ -52,22 +48,31 @@ function baslatmaFonk() {
 	ilkses(nesneler[x]);
 	resimlerDisplay.style.display = 'flex';
 	basla.style.display = 'none';
+
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
+	const resimler = document.querySelectorAll('.resimler button');
+	resimler.forEach((resim, index) => {
+		resim.addEventListener('click', () => resimClick(index + 1, zamanSayaci));
+	});
 }
 
-function resimClick(sira) {
+function resimClick(sira, sure) {
 	if (sira == nesneler[x].xx) {
-		sesDogru.play()
-		alert('DOGRU')
-		fetchAndAlert('DOGRU', nesneler[x].isim, nesneler[sira - 1].isim);
+		sesDogru.play();
+		alert('DOGRU');
+		fetchAndAlert('DOGRU', nesneler[x].isim, nesneler[sira - 1].isim, sure);
 	} else {
-		sesYanlis.play()
-		alert('YANLIS')
-		fetchAndAlert('YANLIS', nesneler[x].isim, nesneler[sira - 1].isim);
+		sesYanlis.play();
+		alert('YANLIS');
+		fetchAndAlert('YANLIS', nesneler[x].isim, nesneler[sira - 1].isim, sure);
 	}
 }
 
-function fetchAndAlert(sonuc, sorulan, tiklanan) {
-	const veri = { sonuc, sorulan, tiklanan };
+function fetchAndAlert(sonuc, sorulan, tiklanan, sure) {
+	const veri = { sonuc, sorulan, tiklanan, sure };
 
 	fetch('/3zortest1', {
 		method: 'POST',
