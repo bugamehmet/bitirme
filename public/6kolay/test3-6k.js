@@ -7,6 +7,8 @@ var digerParca;
 let sesDogru = new Audio('/assets/audio/correct.wav');
 let sesYanlis = new Audio('/assets/audio/wrong.wav');
 
+let zamanSayaci = 0;
+
 window.onload = function () {
 	let parcaListesi = [];
 	for (let i = 1; i <= satirSayisi * sutunSayisi; i++) {
@@ -21,6 +23,10 @@ window.onload = function () {
 		parcaListesi[j] = tmp;
 	}
 
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
 	for (let r = 0; r < satirSayisi; r++) {
 		for (let c = 0; c < sutunSayisi; c++) {
 			let parca = document.createElement('img');
@@ -28,7 +34,7 @@ window.onload = function () {
 			parca.src = '/assets/images/6kolaytest3/' + parcaListesi.pop() + '.png';
 
 			parca.addEventListener('click', function () {
-				tiklamaKontrol(parca);
+				tiklamaKontrol(parca, zamanSayaci);
 			});
 
 			document.getElementById('tahta').append(parca);
@@ -36,8 +42,8 @@ window.onload = function () {
 	}
 };
 
-function fetchAndAlert(sonuc) {
-	const veri = { sonuc };
+function fetchAndAlert(sonuc, sure) {
+	const veri = { sonuc, sure };
 
 	fetch('/6kolaytest3', {
 		method: 'POST',
@@ -55,20 +61,20 @@ function fetchAndAlert(sonuc) {
 		});
 }
 
-function tiklamaKontrol(parca) {
+function tiklamaKontrol(parca, sure) {
 	let dogruParca = '1.png';
 	let simdikiTiklanan = parca.getAttribute('src').split('/').pop();
 	let dogru = 'DOGRU';
 	let yanlis = 'YANLIS';
 	if (dogruParca === simdikiTiklanan) {
 		sesDogru.play();
-		fetchAndAlert(dogru);
+		fetchAndAlert(dogru, sure);
 		alert('DOGRU');
 	}
 
 	if (dogruParca != simdikiTiklanan) {
 		sesYanlis.play();
-		fetchAndAlert(yanlis);
+		fetchAndAlert(yanlis, sure);
 		alert('YANLIŞ');
 	}
 }

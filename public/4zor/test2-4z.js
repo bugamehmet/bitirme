@@ -5,8 +5,14 @@ var simdikiParca;
 var digerParca;
 
 var hareketSayisi = 0;
+let zamanSayaci = 0;
+let zamanlayici;
 
 window.onload = function () {
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
 	let parcaListesi = [];
 	for (let i = 1; i <= satirSayisi * sutunSayisi; i++) {
 		parcaListesi.push(i.toString());
@@ -59,8 +65,6 @@ function fetchAndAlert(hareketler, sure) {
 		});
 }
 
-let zamanSayaci = 0;
-
 function tamamlandiKontrol(hareket) {
 	let tahta = document.getElementById('tahta');
 	let puzzleParcalari = tahta.getElementsByTagName('img');
@@ -70,9 +74,6 @@ function tamamlandiKontrol(hareket) {
 		dogruParcaAdlari.push(i.toString() + '.jpg');
 	}
 
-	const zamanlayici = setInterval(() => {
-		zamanSayaci++;
-	}, 1000);
 	//console.log(dogruParcaAdlari);
 
 	let simdikiParcaAdlari = [];

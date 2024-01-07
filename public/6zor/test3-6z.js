@@ -1,4 +1,6 @@
 var ilkSecilen = null;
+let zamanSayaci = 0;
+let zamanlayici;
 
 var gameObjects = [
 	{ type: 'kare', image: '/assets/images/6zortest3/kare.png' },
@@ -16,7 +18,7 @@ var gameObjects2 = [
 let sesDogru = new Audio('/assets/audio/correct.wav');
 let sesYanlis = new Audio('/assets/audio/wrong.wav');
 
-function tiklamaKontrol(parca) {
+function tiklamaKontrol(parca, sure) {
 	if (ilkSecilen === null) {
 		ilkSecilen = parca;
 		ilkSecilen.style.opacity = 0.5;
@@ -31,7 +33,7 @@ function tiklamaKontrol(parca) {
 			ikinciSecilen.style.display = 'none';
 
 			if (tumObjelerEslesti()) {
-				oyunBitti();
+				oyunBitti(sure);
 			}
 		} else {
 			sesYanlis.play();
@@ -79,20 +81,24 @@ function tumObjelerEslesti() {
 	return true;
 }
 
-function oyunBitti() {
-    let kazandinizMesaji = document.getElementById('kazandiniz-mesaji');
-    kazandinizMesaji.style.display = 'block';
-  
-    let tahta = document.getElementById('tahta');
-    tahta.style.display = 'none';
-  
-    let tahta2 = document.getElementById('tahta2');
-    tahta2.style.display = 'none';
+function oyunBitti(sure) {
+	let kazandinizMesaji = document.getElementById('kazandiniz-mesaji');
+	kazandinizMesaji.style.display = 'block';
 
-	fetchAndAlert('Bitti');
+	let tahta = document.getElementById('tahta');
+	tahta.style.display = 'none';
+
+	let tahta2 = document.getElementById('tahta2');
+	tahta2.style.display = 'none';
+
+	fetchAndAlert('Bitti', sure);
 }
 
 window.onload = function () {
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
 	for (let r = 0; r < 4; r++) {
 		for (let c = 0; c < 1; c++) {
 			let parca = document.createElement('img');
@@ -116,7 +122,7 @@ window.onload = function () {
 		parca.src = gameObjects[i].image;
 
 		parca.addEventListener('click', function () {
-			tiklamaKontrol(parca);
+			tiklamaKontrol(parca, zamanSayaci);
 		});
 	}
 
@@ -125,13 +131,13 @@ window.onload = function () {
 		parca.src = gameObjects2[i].image;
 
 		parca.addEventListener('click', function () {
-			tiklamaKontrol(parca);
+			tiklamaKontrol(parca, zamanSayaci);
 		});
 	}
 };
 
-function fetchAndAlert(sonuc) {
-	const veri = { sonuc };
+function fetchAndAlert(sonuc, sure) {
+	const veri = { sonuc, sure };
 
 	fetch('/6zortest3', {
 		method: 'POST',

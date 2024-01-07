@@ -1,4 +1,6 @@
 var ilkSecilen = null;
+let zamanSayaci = 0;
+let zamanlayici;
 
 var gameObjects = [
 	{ type: 'sari-fasulye', image: '/assets/images/3zortest3/sari-fasulye.png' },
@@ -14,13 +16,7 @@ var gameObjects2 = [
 let sesDogru = new Audio('/assets/audio/correct.wav');
 let sesYanlis = new Audio('/assets/audio/wrong.wav');
 
-let zamanSayaci = 0;
-
-function tiklamaKontrol(parca) {
-	const zamanlayici = setInterval(() => {
-		zamanSayaci++;
-	}, 1000);
-
+function tiklamaKontrol(parca, sure) {
 	if (ilkSecilen === null) {
 		ilkSecilen = parca;
 		ilkSecilen.style.opacity = 0.5;
@@ -35,7 +31,7 @@ function tiklamaKontrol(parca) {
 			ikinciSecilen.style.display = 'none';
 
 			if (tumObjelerEslesti()) {
-				oyunBitti(zamanSayaci);
+				oyunBitti(sure);
 			}
 		} else {
 			sesYanlis.play();
@@ -95,6 +91,10 @@ function oyunBitti(sure) {
 }
 
 window.onload = function () {
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
 	for (let r = 0; r < 3; r++) {
 		for (let c = 0; c < 1; c++) {
 			let parca = document.createElement('img');
@@ -118,7 +118,7 @@ window.onload = function () {
 		parca.src = gameObjects[i].image;
 
 		parca.addEventListener('click', function () {
-			tiklamaKontrol(parca);
+			tiklamaKontrol(parca, zamanSayaci);
 		});
 	}
 
@@ -127,7 +127,7 @@ window.onload = function () {
 		parca.src = gameObjects2[i].image;
 
 		parca.addEventListener('click', function () {
-			tiklamaKontrol(parca);
+			tiklamaKontrol(parca, zamanSayaci);
 		});
 	}
 };

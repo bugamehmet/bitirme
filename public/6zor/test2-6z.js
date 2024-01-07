@@ -5,8 +5,14 @@ var simdikiParca;
 var digerParca;
 
 var hareketSayisi = 0;
+let zamanSayaci = 0;
+let zamanlayici;
 
 window.onload = function () {
+	const zamanlayici = setInterval(() => {
+		zamanSayaci++;
+	}, 1000);
+
 	let parcaListesi = [];
 	for (let i = 1; i <= satirSayisi * sutunSayisi; i++) {
 		parcaListesi.push(i.toString());
@@ -37,26 +43,26 @@ window.onload = function () {
 	}
 };
 
-function fetchAndAlert(hareketler) {
-	const veri = {hareketler};
+function fetchAndAlert(hareketler, sure) {
+	const veri = { hareketler, sure };
 
 	fetch('/6zortest2', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(veri),
 	})
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((sonuc) => {
-        alert(sonuc);
-    })
-    .catch((error) => {
-        console.log('HATA', error);
-    });
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			return response.json();
+		})
+		.then((sonuc) => {
+			alert(sonuc);
+		})
+		.catch((error) => {
+			console.log('HATA', error);
+		});
 }
 
 function tamamlandiKontrol(hareket) {
@@ -77,7 +83,7 @@ function tamamlandiKontrol(hareket) {
 	//console.log(simdikiParcaAdlari);
 
 	if (JSON.stringify(simdikiParcaAdlari) === JSON.stringify(dogruParcaAdlari)) {
-    fetchAndAlert(hareket)
+		fetchAndAlert(hareket, zamanSayaci);
 		alert('Puzzle tamamlandı! Oyun bitti.');
 	}
 }
