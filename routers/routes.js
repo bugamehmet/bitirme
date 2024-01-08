@@ -3,6 +3,7 @@ const connection = require('../db');
 const path = require('path');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
+const yas2kararagaci = require('../utils/kararAgaci');
 
 router.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../views/anasayfa.html'));
@@ -13,9 +14,7 @@ router.post('/', (req, res) => {
 	let memleket = req.body.memleket;
 	let gelir = req.body.gelir;
 	let var_yok = req.body.var_yok;
-
-	// id oluşturna
-	const kullaniciId = uuidv4();
+	const kullaniciId = uuidv4(); // id oluşturna
 
 	if (yas > 6) {
 		req.session.uuid = kullaniciId;
@@ -23,17 +22,58 @@ router.post('/', (req, res) => {
 		req.session.memleket = memleket;
 		req.session.gelir = gelir;
 		req.session.var_yok = var_yok;
+		(req.session.test1_6k = false),
+			(req.session.test2_6k = false),
+			(req.session.test3_6k = false),
+			(req.session.test1_6z = false),
+			(req.session.test2_6z = false),
+			(req.session.test3_6z = false);
 	} else {
 		req.session.uuid = kullaniciId;
 		req.session.yas = yas;
 		req.session.memleket = memleket;
 		req.session.gelir = gelir;
 		req.session.var_yok = var_yok;
+		if (yas == 2) {
+			(req.session.test1_2k = false),
+				(req.session.test2_2k = false),
+				(req.session.test3_2k = false),
+				(req.session.test4_2k = false),
+				(req.session.test1_2z = false),
+				(req.session.test2_2z = false),
+				(req.session.test3_2z = false);
+		} else if (yas == 3) {
+			(req.session.test1_3k = false),
+				(req.session.test2_3k = false),
+				(req.session.test3_3k = false),
+				(req.session.test4_3k = false),
+				(req.session.test1_3z = false),
+				(req.session.test2_3z = false),
+				(req.session.test3_3z = false);
+		} else if (yas == 4) {
+			(req.session.test1_4k = false),
+				(req.session.test2_4k = false),
+				(req.session.test3_4k = false),
+				(req.session.test4_4k = false),
+				(req.session.test1_4z = false),
+				(req.session.test2_4z = false),
+				(req.session.test3_4z = false);
+		} else if (yas == 5) {
+			(req.session.test1_5k = false),
+				(req.session.test2_5k = false),
+				(req.session.test3_5k = false),
+				(req.session.test1_5z = false),
+				(req.session.test2_5z = false),
+				(req.session.test3_5z = false);
+		} else if (yas == 6) {
+			(req.session.test1_6k = false),
+				(req.session.test2_6k = false),
+				(req.session.test3_6k = false),
+				(req.session.test1_6z = false),
+				(req.session.test2_6z = false),
+				(req.session.test3_6z = false);
+		}
 	}
-	console.log(yas);
-	console.log(memleket);
-	console.log(gelir);
-	console.log(var_yok);
 	res.redirect(`/${yas}yas`);
 	res.end();
 });
@@ -65,10 +105,40 @@ router.post('/zortest/:id', (req, res) => {
 	res.render(`oyunlar/${yas}zortest${sayi}`);
 });
 
+router.post('/hesapla2yas', (req, res) => {
+	let yas = req.session.yas;
+	let t1 = req.session.test1_2k;
+	let t2 = req.session.test2_2k;
+	let t3 = req.session.test3_2k;
+	let t4 = req.session.test4_2k;
+	let t5 = req.session.test1_2z;
+	let t6 = req.session.test2_2z;
+	let t7 = req.session.test3_2z;
+	let result = yas2kararagaci(t1, t2, t3, t4, t5, t6, t7);
+	console.log(result);
+	let sorgu = 'INSERT INTO 2yaspuan (uuid, puan) VALUES (?, ?)';
+	let parametreler = [req.session.uuid, result];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		} else {
+			console.log('veriler kaydedildi.');
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		}
+	});
+});
+
 // -------- 2 YAS TESTLERİ
 router.post('/2kolaytest1', (req, res) => {
 	const veri = req.body;
 	console.log(req.body);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_2k = true;
+	} else {
+		req.session.test1_2k = false;
+	}
+	console.log(req.session.test1_2k);
 	let sorgu =
 		'INSERT INTO 2yaskolaytest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
@@ -95,6 +165,11 @@ router.post('/2kolaytest1', (req, res) => {
 router.post('/2kolaytest2', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_2k = true;
+	} else {
+		req.session.test2_2k = false;
+	}
 	let sorgu =
 		'INSERT INTO 2yaskolaytest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
@@ -121,6 +196,11 @@ router.post('/2kolaytest2', (req, res) => {
 router.post('/2kolaytest3', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_2k = true;
+	} else {
+		req.session.test3_2k = false;
+	}
 	let sorgu =
 		'INSERT INTO 2yaskolaytest3 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
@@ -147,6 +227,11 @@ router.post('/2kolaytest3', (req, res) => {
 router.post('/2kolaytest4', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test4_2k = true;
+	} else {
+		req.session.test4_2k = false;
+	}
 	let sorgu =
 		'INSERT INTO 2yaskolaytest4 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
@@ -173,6 +258,11 @@ router.post('/2kolaytest4', (req, res) => {
 router.post('/2zortest1', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_2z = true;
+	} else {
+		req.session.test1_2z = false;
+	}
 	let sorgu =
 		'INSERT INTO 2yaszortest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
@@ -199,6 +289,12 @@ router.post('/2zortest1', (req, res) => {
 router.post('/2zortest2', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_2z = true;
+	} else {
+		req.session.test2_2z = false;
+	}
+
 	let sorgu =
 		'INSERT INTO 2yaszortest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
@@ -225,6 +321,12 @@ router.post('/2zortest2', (req, res) => {
 router.post('/2zortest3', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_2z = true;
+	} else {
+		req.session.test3_2z = false;
+	}
+
 	let sorgu =
 		'INSERT INTO 2yaszortest3 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 	let parametreler = [
