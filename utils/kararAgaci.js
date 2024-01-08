@@ -90,5 +90,160 @@ function yas2kararagaci(t1, t2, t3, t4, t5, t6, t7) {
 		return 0; // veya başka bir değer
 	}
 }
+function yas3kararagaci(t1, t2, t3, t4, t5, t6, t7) {
+	console.log('t1:', t1, 't2:', t2, 't3:', t3, 't4:', t4, 't5:', t5, 't6:', t6, 't7:', t7);
+	if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == true &&
+		t6 == true &&
+		t7 == true
+	) {
+		return 100;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == true &&
+		t6 == true &&
+		t7 == false
+	) {
+		return 95;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == true &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 90;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 80;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == false &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 70;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == false &&
+		t4 == false &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 60;
+	} else if (
+		t1 == true &&
+		t2 == false &&
+		t3 == false &&
+		t4 == false &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 50;
+	} else {
+		console.log('Hiçbir durum eşleşmedi');
+		return 0; // veya başka bir değer
+	}
+}
 
-module.exports = yas2kararagaci;
+function yas4kararagaci(t1, t2, t3, t4, t5, t6, t7) {
+	console.log('t1:', t1, 't2:', t2, 't3:', t3, 't4:', t4, 't5:', t5, 't6:', t6, 't7:', t7);
+	if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == true &&
+		t6 == true &&
+		t7 == true
+	) {
+		return 100;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == true &&
+		t6 == true &&
+		t7 == false
+	) {
+		return 95;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == true &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 90;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == true &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 80;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == true &&
+		t4 == false &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 70;
+	} else if (
+		t1 == true &&
+		t2 == true &&
+		t3 == false &&
+		t4 == false &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 60;
+	} else if (
+		t1 == true &&
+		t2 == false &&
+		t3 == false &&
+		t4 == false &&
+		t5 == false &&
+		t6 == false &&
+		t7 == false
+	) {
+		return 50;
+	} else {
+		console.log('Hiçbir durum eşleşmedi');
+		return 0; // veya başka bir değer
+	}
+}
+
+module.exports = { yas2kararagaci, yas3kararagaci, yas4kararagaci };

@@ -3,7 +3,7 @@ const connection = require('../db');
 const path = require('path');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
-const yas2kararagaci = require('../utils/kararAgaci');
+const { yas2kararagaci, yas3kararagaci, yas4kararagaci } = require('../utils/kararAgaci');
 
 router.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../views/anasayfa.html'));
@@ -120,15 +120,62 @@ router.post('/hesapla2yas', (req, res) => {
 	let parametreler = [req.session.uuid, result];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
-			console.log('veriler yüklenirken hata oluştur', err);
+			console.log('HESAPLANAN PUAN VERİLERİ YÜKLENİRKEN HATA OLUŞTU', err);
 			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
 		} else {
-			console.log('veriler kaydedildi.');
+			console.log('PUANLAR KAYDEDİLDİ');
 			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
 		}
 	});
 });
 
+router.post('/hesapla3yas', (req, res) => {
+	let yas = req.session.yas;
+	let t1 = req.session.test1_3k;
+	let t2 = req.session.test2_3k;
+	let t3 = req.session.test3_3k;
+	let t4 = req.session.test4_3k;
+	let t5 = req.session.test1_3z;
+	let t6 = req.session.test2_3z;
+	let t7 = req.session.test3_3z;
+	let result = yas3kararagaci(t1, t2, t3, t4, t5, t6, t7);
+	console.log(result);
+	let sorgu = 'INSERT INTO 3yaspuan (uuid, puan) VALUES (?, ?)';
+	let parametreler = [req.session.uuid, result];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('HESAPLANAN PUAN VERİLERİ YÜKLENİRKEN HATA OLUŞTU', err);
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		} else {
+			console.log('PUANLAR KAYDEDİLDİ');
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		}
+	});
+});
+
+router.post('/hesapla4yas', (req, res) => {
+	let yas = req.session.yas;
+	let t1 = req.session.test1_4k;
+	let t2 = req.session.test2_4k;
+	let t3 = req.session.test3_4k;
+	let t4 = req.session.test4_4k;
+	let t5 = req.session.test1_4z;
+	let t6 = req.session.test2_4z;
+	let t7 = req.session.test3_4z;
+	let result = yas4kararagaci(t1, t2, t3, t4, t5, t6, t7);
+	console.log(result);
+	let sorgu = 'INSERT INTO 4yaspuan (uuid, puan) VALUES (?, ?)';
+	let parametreler = [req.session.uuid, result];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('HESAPLANAN PUAN VERİLERİ YÜKLENİRKEN HATA OLUŞTU', err);
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		} else {
+			console.log('PUANLAR KAYDEDİLDİ');
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		}
+	});
+});
 // -------- 2 YAS TESTLERİ
 router.post('/2kolaytest1', (req, res) => {
 	const veri = req.body;
@@ -356,12 +403,25 @@ router.post('/2zortest3', (req, res) => {
 router.post('/3kolaytest1', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
-	//console.log('YAS:', req.session.yas);
-	//console.log('Alınan veri:', veri.sorulan);
-	//console.log('Alınan veri:', veri.tiklanan);
-	//console.log('Alınan veri:', veri.sonuc);
-	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_3k = true;
+	} else {
+		req.session.test1_3k = false;
+	}
+	console.log(req.session.test1_3k);
+	let sorgu =
+		'INSERT INTO 3yaskolaytest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
@@ -375,32 +435,192 @@ router.post('/3kolaytest1', (req, res) => {
 router.post('/3kolaytest2', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3kolaytest2');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_3k = true;
+	} else {
+		req.session.test2_3k = false;
+	}
+	console.log(req.session.test2_3k);
+	let sorgu =
+		'INSERT INTO 3yaskolaytest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3kolaytest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3kolaytest2');
+		}
+	});
 });
 router.post('/3kolaytest3', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3kolaytest3');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_3k = true;
+	} else {
+		req.session.test3_3k = false;
+	}
+	console.log(req.session.test3_3k);
+	let sorgu =
+		'INSERT INTO 3yaskolaytest3 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3kolaytest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3kolaytest3');
+		}
+	});
 });
 router.post('/3kolaytest4', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3kolaytest4');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test4_3k = true;
+	} else {
+		req.session.test4_3k = false;
+	}
+	console.log(req.session.test4_3k);
+	let sorgu =
+		'INSERT INTO 3yaskolaytest4 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3kolaytest4');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3kolaytest4');
+		}
+	});
 });
 router.post('/3zortest1', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3zortest1');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_3z = true;
+	} else {
+		req.session.test1_3z = false;
+	}
+	console.log(req.session.test1_3z);
+	let sorgu =
+		'INSERT INTO 3yaszortest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3zortest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3zortest1');
+		}
+	});
 });
 router.post('/3zortest2', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3zortest2');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_3z = true;
+	} else {
+		req.session.test2_3z = false;
+	}
+	console.log(req.session.test2_3z);
+	let sorgu =
+		'INSERT INTO 3yaszortest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3zortest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3zortest2');
+		}
+	});
 });
 router.post('/3zortest3', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/3zortest3');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_3z = true;
+	} else {
+		req.session.test3_3z = false;
+	}
+	console.log(req.session.test3_3z);
+	let sorgu =
+		'INSERT INTO 3yaszortest3 (uuid, yas, memleket, gelir, zih_rah, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3zortest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3zortest3');
+		}
+	});
 });
 // ------- 3 YAS TESTLERİ SON
 
@@ -408,51 +628,221 @@ router.post('/3zortest3', (req, res) => {
 router.post('/4kolaytest1', (req, res) => {
 	const veri = req.body;
 	console.log(veri);
-	//console.log('YAS:', req.session.yas);
-	//console.log('Alınan veri:', veri.sorulan);
-	//console.log('Alınan veri:', veri.tiklanan);
-	//console.log('Alınan veri:', veri.sonuc);
-	let sorgu = 'INSERT INTO test1 (yas, asilnesne, tiknesne, sonuc) VALUES (?, ?, ?, ?)';
-	let parametreler = [req.session.yas, veri.sorulan, veri.tiklanan, veri.sonuc];
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_4k = true;
+	} else {
+		req.session.test1_4k = false;
+	}
+	console.log(req.session.test1_4k);
+	let sorgu =
+		'INSERT INTO 4yaskolaytest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
 	connection.query(sorgu, parametreler, (err, results) => {
 		if (err) {
 			console.log('veriler yüklenirken hata oluştur', err);
-			res.render('oyunlar/3kolaytest1');
+			res.render('oyunlar/4kolaytest1');
 		} else {
 			console.log('veriler kaydedildi.');
-			res.render('oyunlar/3kolaytest1');
+			res.render('oyunlar/4kolaytest1');
 		}
 	});
 });
 router.post('/4kolaytest2', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4kolaytest2');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_4k = true;
+	} else {
+		req.session.test2_4k = false;
+	}
+	console.log(req.session.test2_4k);
+	let sorgu =
+		'INSERT INTO 4yaskolaytest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/4kolaytest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/4kolaytest2');
+		}
+	});
 });
 router.post('/4kolaytest3', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4kolaytest3');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_4k = true;
+	} else {
+		req.session.test3_4k = false;
+	}
+	console.log(req.session.test3_4k);
+	let sorgu =
+		'INSERT INTO 4yaskolaytest3 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/4kolaytest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/4kolaytest3');
+		}
+	});
 });
 router.post('/4kolaytest4', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4kolaytest4');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test4_4k = true;
+	} else {
+		req.session.test4_4k = false;
+	}
+	console.log(req.session.test4_4k);
+	let sorgu =
+		'INSERT INTO 4yaskolaytest4 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/4kolaytest4');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/4kolaytest4');
+		}
+	});
 });
 router.post('/4zortest1', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4zortest1');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_4z = true;
+	} else {
+		req.session.test1_4z = false;
+	}
+	console.log(req.session.test1_4z);
+	let sorgu =
+		'INSERT INTO 4yaszortest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/4zortest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/4zortest1');
+		}
+	});
 });
-router.post('/4zortest2', (req, res) => {
+router.post('/4zortest2', (req, res) => { // TODO: true-false ayarlama mantığı geliştirilmeli
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4zortest2');
+	req.session.test2_4z = true;
+
+	console.log(req.session.test2_4z);
+	let sorgu =
+		'INSERT INTO 4yaszortest2 (uuid, yas, memleket, gelir, zih_rah, hareketler, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.hareketler,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/4zortest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/4zortest2');
+		}
+	});
 });
 router.post('/4zortest3', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/4zortest3');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_4z = true;
+	} else {
+		req.session.test3_4z = false;
+	}
+	console.log(req.session.test3_4z);
+	let sorgu =
+		'INSERT INTO 4yaszortest3 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/4zortest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/4zortest3');
+		}
+	});
 });
 // ---------- 4 YAS TESTLER SON
 

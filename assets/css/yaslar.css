@@ -122,7 +122,6 @@ b {
 	margin-right: auto;
 }
 .hesapla {
-	font-size: 20px;
 	margin: 0, auto;
 	display: flex;
 	flex-wrap: wrap;
@@ -130,5 +129,10 @@ b {
 	cursor: pointer;
 }
 .hesapla button {
-	opacity: 0;
+	font-family: 'amatic';
+	font-size: medium;
+	background-color: transparent;
+	border: none;
+	color: inherit;
+	cursor: pointer;
 }
