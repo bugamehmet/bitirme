@@ -3,7 +3,12 @@ const connection = require('../db');
 const path = require('path');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
-const { yas2kararagaci, yas3kararagaci, yas4kararagaci } = require('../utils/kararAgaci');
+const {
+	yas2kararagaci,
+	yas3kararagaci,
+	yas4kararagaci,
+	yas5kararagaci,
+} = require('../utils/kararAgaci');
 
 router.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '../views/anasayfa.html'));
@@ -127,6 +132,13 @@ router.post('/hesapla2yas', (req, res) => {
 			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
 		}
 	});
+	req.session.test1_2k = false;
+	req.session.test2_2k = false;
+	req.session.test3_2k = false;
+	req.session.test4_2k = false;
+	req.session.test1_2z = false;
+	req.session.test2_2z = false;
+	req.session.test3_2z = false;
 });
 
 router.post('/hesapla3yas', (req, res) => {
@@ -151,6 +163,13 @@ router.post('/hesapla3yas', (req, res) => {
 			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
 		}
 	});
+	req.session.test1_3k = false;
+	req.session.test2_3k = false;
+	req.session.test3_3k = false;
+	req.session.test4_3k = false;
+	req.session.test1_3z = false;
+	req.session.test2_3z = false;
+	req.session.test3_3z = false;
 });
 
 router.post('/hesapla4yas', (req, res) => {
@@ -175,7 +194,44 @@ router.post('/hesapla4yas', (req, res) => {
 			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
 		}
 	});
+	req.session.test1_4k = false;
+	req.session.test2_4k = false;
+	req.session.test3_4k = false;
+	req.session.test4_4k = false;
+	req.session.test1_4z = false;
+	req.session.test2_4z = false;
+	req.session.test3_4z = false;
 });
+
+router.post('/hesapla5yas', (req, res) => {
+	let yas = req.session.yas;
+	let t1 = req.session.test1_5k;
+	let t2 = req.session.test2_5k;
+	let t3 = req.session.test3_5k;
+	let t4 = req.session.test1_5z;
+	let t5 = req.session.test2_5z;
+	let t6 = req.session.test3_5z;
+	let result = yas5kararagaci(t1, t2, t3, t4, t5, t6);
+	console.log(result);
+	let sorgu = 'INSERT INTO 5yaspuan (uuid, puan) VALUES (?, ?)';
+	let parametreler = [req.session.uuid, result];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('HESAPLANAN PUAN VERİLERİ YÜKLENİRKEN HATA OLUŞTU', err);
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		} else {
+			console.log('PUANLAR KAYDEDİLDİ');
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		}
+	});
+	req.session.test1_5k = false;
+	req.session.test2_5k = false;
+	req.session.test3_5k = false;
+	req.session.test1_5z = false;
+	req.session.test2_5z = false;
+	req.session.test3_5z = false;
+});
+
 // -------- 2 YAS TESTLERİ
 router.post('/2kolaytest1', (req, res) => {
 	const veri = req.body;
@@ -785,7 +841,8 @@ router.post('/4zortest1', (req, res) => {
 		}
 	});
 });
-router.post('/4zortest2', (req, res) => { // TODO: true-false ayarlama mantığı geliştirilmeli
+router.post('/4zortest2', (req, res) => {
+	// TODO: true-false ayarlama mantığı geliştirilmeli
 	veri = req.body;
 	console.log(veri);
 	req.session.test2_4z = true;
@@ -850,32 +907,186 @@ router.post('/4zortest3', (req, res) => {
 router.post('/5kolaytest1', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5kolaytest1');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_5k = true;
+	} else {
+		req.session.test1_5k = false;
+	}
+	console.log(req.session.test1_5k);
+	let sorgu =
+		'INSERT INTO 5yaskolaytest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/5kolaytest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/5kolaytest1');
+		}
+	});
 });
 router.post('/5kolaytest2', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5kolaytest2');
+
+	req.session.test2_5k = true;
+
+	console.log(req.session.test2_5k);
+	let sorgu =
+		'INSERT INTO 5yaskolaytest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/5kolaytest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/5kolaytest2');
+		}
+	});
 });
 router.post('/5kolaytest3', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5kolaytest2');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_5k = true;
+	} else {
+		req.session.test3_5k = false;
+	}
+	console.log(req.session.test3_5k);
+	let sorgu =
+		'INSERT INTO 5yaskolaytest3 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/5kolaytest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/5kolaytest3');
+		}
+	});
 });
 router.post('/5zortest1', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5zortest1');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test1_5z = true;
+	} else {
+		req.session.test1_5z = false;
+	}
+	console.log(req.session.test1_5z);
+	let sorgu =
+		'INSERT INTO 5yaszortest1 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/5zortest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/5zortest1');
+		}
+	});
 });
 router.post('/5zortest2', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5zortest2');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_5z = true;
+	} else {
+		req.session.test2_5z = false;
+	}
+	console.log(req.session.test2_5z);
+	let sorgu =
+		'INSERT INTO 5yaszortest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/5zortest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/5zortest2');
+		}
+	});
 });
 router.post('/5zortest3', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/5zortest3');
+	req.session.test3_5z = true;
+	console.log(req.session.test3_5z);
+	let sorgu =
+		'INSERT INTO 5yaszortest3 (uuid, yas, memleket, gelir, zih_rah, cevirme, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.toplamCevirmeler,
+		veri.toplamZaman,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/5zortest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/5zortest3');
+		}
+	});
 });
 // ---------- 5 YAS TESTLER SON
 
