@@ -8,6 +8,7 @@ const {
 	yas3kararagaci,
 	yas4kararagaci,
 	yas5kararagaci,
+	yas6kararagaci,
 } = require('../utils/kararAgaci');
 
 router.get('/', (req, res) => {
@@ -110,6 +111,7 @@ router.post('/zortest/:id', (req, res) => {
 	res.render(`oyunlar/${yas}zortest${sayi}`);
 });
 
+// PUAN HESAPLAMA BASLANGİC
 router.post('/hesapla2yas', (req, res) => {
 	let yas = req.session.yas;
 	let t1 = req.session.test1_2k;
@@ -231,6 +233,36 @@ router.post('/hesapla5yas', (req, res) => {
 	req.session.test2_5z = false;
 	req.session.test3_5z = false;
 });
+
+router.post('/hesapla6yas', (req, res) => {
+	let yas = req.session.yas;
+	let t1 = req.session.test1_6k;
+	let t2 = req.session.test2_6k;
+	let t3 = req.session.test3_6k;
+	let t4 = req.session.test1_6z;
+	let t5 = req.session.test2_6z;
+	let t6 = req.session.test3_6z;
+	let result = yas5kararagaci(t1, t2, t3, t4, t5, t6);
+	console.log(result);
+	let sorgu = 'INSERT INTO 6yaspuan (uuid, puan) VALUES (?, ?)';
+	let parametreler = [req.session.uuid, result];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('HESAPLANAN PUAN VERİLERİ YÜKLENİRKEN HATA OLUŞTU', err);
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		} else {
+			console.log('PUANLAR KAYDEDİLDİ');
+			res.sendFile(path.join(__dirname, `../views/${yas}yas.html`));
+		}
+	});
+	req.session.test1_6k = false;
+	req.session.test2_6k = false;
+	req.session.test3_6k = false;
+	req.session.test1_6z = false;
+	req.session.test2_6z = false;
+	req.session.test3_6z = false;
+});
+// PUAN HESAPLAMA SON
 
 // -------- 2 YAS TESTLERİ
 router.post('/2kolaytest1', (req, res) => {
@@ -651,11 +683,8 @@ router.post('/3zortest2', (req, res) => {
 router.post('/3zortest3', (req, res) => {
 	let veri = req.body;
 	console.log(veri);
-	if (veri.sonuc == 'DOGRU') {
-		req.session.test3_3z = true;
-	} else {
-		req.session.test3_3z = false;
-	}
+	req.session.test3_3z = true;
+
 	console.log(req.session.test3_3z);
 	let sorgu =
 		'INSERT INTO 3yaszortest3 (uuid, yas, memleket, gelir, zih_rah, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -1094,32 +1123,169 @@ router.post('/5zortest3', (req, res) => {
 router.post('/6kolaytest1', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6kolaytest1');
+	req.session.test1_6k = true;
+	console.log(req.session.test1_6k);
+	let sorgu =
+		'INSERT INTO 6yaskolaytest1 (uuid, yas, memleket, gelir, zih_rah, cevirme, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.toplamCevirmeler,
+		veri.toplamZaman,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/6kolaytest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/6kolaytest1');
+		}
+	});
 });
 router.post('/6kolaytest2', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6kolaytest2');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test2_6k = true;
+	} else {
+		req.session.test2_6k = false;
+	}
+	console.log(req.session.test2_6k);
+	let sorgu =
+		'INSERT INTO 6yaskolaytest2 (uuid, yas, memleket, gelir, zih_rah, hedef, secilen, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sorulan,
+		veri.tiklanan,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/6kolaytest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/6kolaytest2');
+		}
+	});
 });
 router.post('/6kolaytest3', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6kolaytest3');
+	if (veri.sonuc == 'DOGRU') {
+		req.session.test3_6k = true;
+	} else {
+		req.session.test3_6k = false;
+	}
+	console.log(req.session.test3_6k);
+	let sorgu =
+		'INSERT INTO 6yaskolaytest3 (uuid, yas, memleket, gelir, zih_rah, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/3zortest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/3zortest3');
+		}
+	});
 });
 router.post('/6zortest1', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6zortest1');
+	req.session.test1_6z = true;
+	console.log(req.session.test1_6z);
+	let sorgu =
+		'INSERT INTO 6yaszortest1 (uuid, yas, memleket, gelir, zih_rah, cevirme, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.toplamCevirmeler,
+		veri.toplamZaman,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/6zortest1');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/6zortest1');
+		}
+	});
 });
 router.post('/6zortest2', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6zortest2');
+	req.session.test2_6z = true;
+
+	console.log(req.session.test2_6z);
+	let sorgu =
+		'INSERT INTO 6yaszortest2 (uuid, yas, memleket, gelir, zih_rah, hareketler, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.hareketler,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/6zortest2');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/6zortest2');
+		}
+	});
 });
 router.post('/6zortest3', (req, res) => {
 	veri = req.body;
 	console.log(veri);
-	res.render('oyunlar/6zortest3');
+	req.session.test3_6z = true;
+	console.log(req.session.test3_6z);
+	let sorgu =
+		'INSERT INTO 6yaszortest3 (uuid, yas, memleket, gelir, zih_rah, sonuc, sure) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	let parametreler = [
+		req.session.uuid,
+		req.session.yas,
+		req.session.memleket,
+		req.session.gelir,
+		req.session.var_yok,
+		veri.sonuc,
+		veri.sure,
+	];
+	connection.query(sorgu, parametreler, (err, results) => {
+		if (err) {
+			console.log('veriler yüklenirken hata oluştur', err);
+			res.render('oyunlar/6zortest3');
+		} else {
+			console.log('veriler kaydedildi.');
+			res.render('oyunlar/6zortest3');
+		}
+	});
 });
 // ---------- 6		  YAS TESTLER SON
 
